@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # flutter_app_casestudy
 
 Our flutter app for the casestudy
@@ -14,3 +15,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# casestudy
+Our repository for casestudy-paraplegic flutter app
+>>>>>>> d4957f2cb3d9723525d3c3b8ff0b5d433283bbb7
