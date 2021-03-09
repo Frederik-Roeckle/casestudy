@@ -1,4 +1,4 @@
-import 'package:flutter_app_casestudy/Kategorien.dart';
+import 'package:flutter_app_casestudy/Routing/Kategorien.dart';
 
 import 'styles.dart';
 import 'package:flutter/material.dart';
