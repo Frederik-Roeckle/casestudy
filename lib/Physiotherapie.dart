@@ -6,7 +6,7 @@ class Physiotherapie extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Physiotherapie"), backgroundColor: Colors.amber[300]),
+            title: Text("Physiotherapie"), backgroundColor: Styles.appBarColor),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,

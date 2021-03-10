@@ -6,7 +6,9 @@ class HomescreenList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Übersicht"), backgroundColor: Styles.appBarColor),
+          title: Text("Übersicht"),
+          backgroundColor: Styles.appBarColor,
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
