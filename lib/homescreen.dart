@@ -5,33 +5,29 @@ class HomescreenList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Übersicht")),
+        appBar: AppBar(
+            title: Text("Übersicht"), backgroundColor: Styles.appBarColor),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.amber[200],
-              child: new FlatButton(
-                  onPressed: () => Navigator.pushNamed(context, '/Kalender'),
-                  child: new Text('Kalender')),
-            ),
-            Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.amber[100],
-              child: new FlatButton(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, '/Physiotherapie'),
-                  child: new Text('Physiotherapie')),
-            ),
-            Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.amber[200],
-              child: new FlatButton(
-                  onPressed: () => Navigator.pushNamed(context, '/Tagebuch'),
-                  child: new Text('Tagebuch')),
-            ),
+            _routingTile(context, 'Kalender', '/Kalender'),
+            _routingTile(context, 'Physiotherapie', '/Physiotherapie'),
+            _routingTile(context, 'Tagebuch', '/Tagebuch'),
           ],
+        ));
+  }
+
+  Widget _routingTile(context, String funktion, String route) {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        child: Container(
+          padding: EdgeInsets.all(30.0),
+          decoration: BoxDecoration(
+              color: Styles.tileColor,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: new FlatButton(
+              onPressed: () => Navigator.pushNamed(context, route),
+              child: new Text(funktion)),
         ));
   }
 }
