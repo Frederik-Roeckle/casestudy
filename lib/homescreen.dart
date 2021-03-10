@@ -6,7 +6,7 @@ class HomescreenList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Übersicht"),
+          title: Text("Übersicht", style: Styles.headerLarge),
           backgroundColor: Styles.appBarColor,
         ),
         body: Column(
@@ -29,7 +29,7 @@ class HomescreenList extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: new FlatButton(
               onPressed: () => Navigator.pushNamed(context, route),
-              child: new Text(funktion)),
+              child: new Text(funktion, style: Styles.textDefault)),
         ));
   }
 }

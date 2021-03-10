@@ -6,7 +6,8 @@ class Tagebuch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Tagebuch"), backgroundColor: Styles.appBarColor),
+            title: Text("Tagebuch", style: Styles.headerLarge),
+            backgroundColor: Styles.appBarColor),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
