@@ -10,13 +10,13 @@ class MoodDatabase {
 
   Future<Database> database;
 
-  Future<void> initaliseDatabase(String databaseName) async {
+  Future<void> initaliseDatabase() async {
     String databasePath = await getDatabasesPath();
     database = openDatabase(
-      join(databasePath, databaseName),
+      join(databasePath, "MoodDatabase"),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE Test(id INTEGER PRIMARY KEY, name TEXT)",
+          "CREATE TABLE Mood(DateTime TEXT PRIMARY KEY, MoodInPoints INTEGER, Schmerzen INTEGER, Schmerzbeschreibung TEXT, PsychologischeVerfassung TEXT)",
         );
       },
       version: 1,
@@ -25,7 +25,7 @@ class MoodDatabase {
 
   Future<void> insertElement (MoodEntry moodEntry) async {
       final Database db = await database;
-      await db.insert("Test", moodEntry.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+      await db.insert("Mood", moodEntry.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<MoodEntry>> retrieveElements() async {
@@ -33,13 +33,16 @@ class MoodDatabase {
     final Database db = await database;
 
     // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await db.query('Test');
+    final List<Map<String, dynamic>> maps = await db.query('Mood');
 
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
       return MoodEntry(
-        id: maps[i]['id'],
-        name: maps[i]['name'],
+        dateTime: maps[i]["DateTime"],
+        moodInPoints: maps[i]["MoodInPoints"],
+        schmerzen: maps[i]["Schmerzen"],
+        schmerzBeschreibung: maps[i]["Schmerzbeschreibung"],
+        psychologischeVerfassung: maps[i]["PsychologischeVerfassung"],
       );
     });
   }

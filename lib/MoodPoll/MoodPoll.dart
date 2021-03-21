@@ -20,39 +20,84 @@ class _MoodPollController extends State<MoodPoll> {
   bool jaListTileSelected = false;
   double sliderValue = 50;
   List<Color> btnColorSchmerzabfrage = [Styles.LIGHT_GREY, Styles.LIGHT_GREY];
+  double visibilitySchmerzabfrage = 1;
+  double visibilityButtonAbschluss = 0;
+  int schmerz = 0;
+
+
+  //Controller
+
+  final schmerzAbfrageController = TextEditingController();
+  final psychischeVerfassungController = TextEditingController();
+
 
   //UI Handler and Co. below
 
-  void jaSchmerzHandler() {
-    setState(() {
+  void buttonSchmerzHandler(int position) {
+    if(position == 0) {
       if(btnColorSchmerzabfrage[0] == Styles.LIGHT_GREY) {
         btnColorSchmerzabfrage[0] = Styles.LIGHT_GREEN;
         btnColorSchmerzabfrage[1] = Styles.LIGHT_GREY;
+        schmerz = 1;
+        setVisibiltySchmerzabfrage(1);
+        setAbschlussButtonVisibilityDependingOnUserInput();
       } else {
         btnColorSchmerzabfrage[0] = Styles.LIGHT_GREY;
-        btnColorSchmerzabfrage[1] = Styles.LIGHT_GREEN;
+        schmerz = 0;
+        setVisibiltySchmerzabfrage(0);
+        setAbschlussButtonVisibilityDependingOnUserInput();
       }
-    });
-  }
-
-  void neinSchmerzHandler() {
-    setState(() {
+    } else if(position == 1) {
       if(btnColorSchmerzabfrage[1] == Styles.LIGHT_GREY) {
-        btnColorSchmerzabfrage[1] = Styles.LIGHT_GREEN;
         btnColorSchmerzabfrage[0] = Styles.LIGHT_GREY;
+        btnColorSchmerzabfrage[1] = Styles.LIGHT_GREEN;
+        schmerz = 0;
+        setAbschlussButtonVisibilityDependingOnUserInput();
+        setVisibiltySchmerzabfrage(0);
       } else {
         btnColorSchmerzabfrage[1] = Styles.LIGHT_GREY;
-        btnColorSchmerzabfrage[0] = Styles.LIGHT_GREEN;
+        schmerz = 0;
+        setVisibiltySchmerzabfrage(0);
+        setAbschlussButtonVisibilityDependingOnUserInput();
       }
+    }
+  }
+
+  void setVisibiltySchmerzabfrage(double value) {
+    setState(() {
+      this.visibilitySchmerzabfrage = value;
     });
   }
 
+  void buttonAbschlussHandler() async {
 
+    //TODO Speichern der Infos in der DB
+    MoodDatabase moodDatabase = new MoodDatabase();
+    String currentDate = DateTime.now().toIso8601String();
+    MoodEntry moodEntry = MoodEntry(
+      dateTime: currentDate,
+      moodInPoints: sliderValue,
+      schmerzen: schmerz,
+      schmerzBeschreibung: schmerzAbfrageController.text,
+      psychologischeVerfassung: psychischeVerfassungController.text,
+    );
+    await moodDatabase.initaliseDatabase();
+    await moodDatabase.insertElement(moodEntry);
+    //debugPrint(await moodDatabase.retrieveElements().toString());
+  }
 
+  void setAbschlussButtonVisibilityDependingOnUserInput() {
+    if((sliderValue == 0 || sliderValue == 20 || sliderValue == 40 || sliderValue == 60 || sliderValue == 80 || sliderValue == 100) && (btnColorSchmerzabfrage[0] == Styles.LIGHT_GREEN || btnColorSchmerzabfrage[1] == Styles.LIGHT_GREEN)) {
+        visibilityButtonAbschluss = 1;
+    } else {
+      visibilityButtonAbschluss = 0;
+    }
+  }
 
   void sliderHandler(double value) {
     setState(() {
       sliderValue = value;
+      setAbschlussButtonVisibilityDependingOnUserInput();
     });
   }
 
@@ -87,14 +132,18 @@ class _MoodPollView extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hi"),
+        title: Text("Stimmungsabfrage"),
 
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Stimmungsabfrage(context),
             Schmerzabfrage(context),
+            SchmerzabfrageStelle(context),
+            PsychischeVerfassung(context),
+            Abschlussbutton(context),
 
           ],
         ),
@@ -131,23 +180,75 @@ class _MoodPollView extends StatelessWidget{
   Widget Schmerzabfrage(BuildContext context) {
     return Center(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text("Hast du Schmerzen?"),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               RaisedButton(
-                onPressed: state.jaSchmerzHandler,
+                onPressed: () => state.buttonSchmerzHandler(0),
                 child: Text("Ja"),
                 color: state.btnColorSchmerzabfrage[0]
               ),
               RaisedButton(
-                onPressed: state.neinSchmerzHandler,
+                onPressed: () => state.buttonSchmerzHandler(1),
                 child: Text("Nein"),
                 color: state.btnColorSchmerzabfrage[1]
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+
+  Widget SchmerzabfrageStelle (BuildContext context) {
+    return Opacity(
+      opacity: state.visibilitySchmerzabfrage,
+      child: Center(
+        child: Column(
+          crossAxisAlignment:  CrossAxisAlignment.center,
+          children: <Widget>[
+            Text("Wenn ja an welchen Stellen?"),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Schmerzen",
+              ),
+              controller: state.schmerzAbfrageController,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget PsychischeVerfassung (BuildContext context) {
+    return Center(
+      child: Column(
+        crossAxisAlignment:  CrossAxisAlignment.center,
+        children: <Widget>[
+          Text("In welcher psychischen Verfassung bist du heute?"),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Verfassung",
+            ),
+            controller: state.psychischeVerfassungController,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget Abschlussbutton(BuildContext context) {
+    return Opacity(
+      opacity: state.visibilityButtonAbschluss,
+      child: RaisedButton(
+        onPressed: state.buttonAbschlussHandler,
+        child: Text("Abschluss"),
       ),
     );
   }

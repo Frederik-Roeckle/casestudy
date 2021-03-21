@@ -1,21 +1,31 @@
 
 class MoodEntry {
 
-  // Primary Key
-  //final DateTime dateTime;
-  final int id;
+  // Primary Key in ISO 8601 Format
+  final String dateTime;
 
-  //Mood auf 1-10 o.A. Definition
-  //final int mood;
-  final String name;
+  //Mood auf 0-100 in 20er Schritten
+  final double moodInPoints;
+
+  //Schmerzen vorhanden, eig bool aber not supported by sqlite instead 0 = false, 1 = true
+  final int schmerzen;
+
+  //Scherzbeschreibung
+  final String schmerzBeschreibung;
+
+  //Psychologische Verfassung
+  final String psychologischeVerfassung;
 
   //MoodEntry ({this.dateTime, this.mood});
-  MoodEntry ({this.id, this.name});
+  MoodEntry ({this.dateTime, this.moodInPoints, this.schmerzen, this.schmerzBeschreibung, this.psychologischeVerfassung});
 
   Map<String, dynamic> toMap() {
     return {
-      "id": this.id,
-      "name": this.name,
+      "DateTime": this.dateTime,
+      "MoodInPoints": this.moodInPoints,
+      "Schmerzen": this.schmerzen,
+      "Schmerzbeschreibung": this.schmerzBeschreibung,
+      "PsychologischeVerfassung": this.psychologischeVerfassung,
     };
   }
 }
