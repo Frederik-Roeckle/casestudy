@@ -1,5 +1,5 @@
-import 'styles.dart';
-import 'datenbank.dart';
+import '../styles.dart';
+import './datenbank.dart';
 import 'package:flutter/material.dart';
 
 class Tagebuch extends StatefulWidget {
