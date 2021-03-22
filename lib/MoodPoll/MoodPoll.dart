@@ -5,6 +5,7 @@ import 'package:flutter_app_casestudy/styles.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodDatabase.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodEntry.Dart';
+import 'package:path/path.dart';
 
 
 class MoodPoll extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MoodPollController extends State<MoodPoll> {
   double sliderValue = 50;
   List<Color> btnColorSchmerzabfrage = [Styles.LIGHT_GREY, Styles.LIGHT_GREY];
   double visibilitySchmerzabfrage = 1;
-  double visibilityButtonAbschluss = 0;
+  bool abschlussButtonEnabled = false;
   int schmerz = 0;
 
 
@@ -83,14 +84,15 @@ class _MoodPollController extends State<MoodPoll> {
     );
     await moodDatabase.initaliseDatabase();
     await moodDatabase.insertElement(moodEntry);
-    //debugPrint(await moodDatabase.retrieveElements().toString());
+    List<MoodEntry> dbList = await moodDatabase.retrieveElements();
+    debugPrint(dbList.last.moodInPoints.toString());
   }
 
   void setAbschlussButtonVisibilityDependingOnUserInput() {
     if((sliderValue == 0 || sliderValue == 20 || sliderValue == 40 || sliderValue == 60 || sliderValue == 80 || sliderValue == 100) && (btnColorSchmerzabfrage[0] == Styles.LIGHT_GREEN || btnColorSchmerzabfrage[1] == Styles.LIGHT_GREEN)) {
-        visibilityButtonAbschluss = 1;
+      abschlussButtonEnabled = true;
     } else {
-      visibilityButtonAbschluss = 0;
+      abschlussButtonEnabled = false;
     }
   }
 
@@ -133,18 +135,17 @@ class _MoodPollView extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         title: Text("Stimmungsabfrage"),
+        backgroundColor: Styles.STRONG_GREEN,
 
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: ListView(
           children: <Widget>[
             Stimmungsabfrage(context),
+            PsychischeVerfassung(context),
             Schmerzabfrage(context),
             SchmerzabfrageStelle(context),
-            PsychischeVerfassung(context),
             Abschlussbutton(context),
-
           ],
         ),
       ),
@@ -154,70 +155,40 @@ class _MoodPollView extends StatelessWidget{
 
 
   Widget Stimmungsabfrage(BuildContext context) {
-    return Center(
-      child: Column(
-      children: <Widget>[
-        Container(
-          child: Text("Wie geht es Dir heute?"),
-          ),
-        Container(
-          child: Slider(
-            value: state.sliderValue,
-            onChanged: state.sliderHandler,
-            divisions: 5,
-            min: 0,
-            max: 100,
-            label: state.getSmileyForMood(),
-            activeColor: Color(0xFF00CC5C),
-            inactiveColor: Color(0xFFE81616),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget Schmerzabfrage(BuildContext context) {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text("Hast du Schmerzen?"),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () => state.buttonSchmerzHandler(0),
-                child: Text("Ja"),
-                color: state.btnColorSchmerzabfrage[0]
-              ),
-              RaisedButton(
-                onPressed: () => state.buttonSchmerzHandler(1),
-                child: Text("Nein"),
-                color: state.btnColorSchmerzabfrage[1]
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-
-  Widget SchmerzabfrageStelle (BuildContext context) {
-    return Opacity(
-      opacity: state.visibilitySchmerzabfrage,
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Center(
         child: Column(
-          crossAxisAlignment:  CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Wenn ja an welchen Stellen?"),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Schmerzen",
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                color: Styles.LIGHT_GREEN,
+                borderRadius: BorderRadius.all(
+                    Radius.circular(5)
+                ),
               ),
-              controller: state.schmerzAbfrageController,
+              child: Center(
+                child: Text(
+                    "Wie geht es Dir heute?",
+                    style: Styles.textDefault
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Slider(
+                value: state.sliderValue,
+                onChanged: state.sliderHandler,
+                divisions: 5,
+                min: 0,
+                max: 100,
+                label: state.getSmileyForMood(),
+                activeColor: Color(0xFF00CC5C),
+                inactiveColor: Color(0xFFE81616),
+              ),
             ),
           ],
         ),
@@ -225,31 +196,157 @@ class _MoodPollView extends StatelessWidget{
     );
   }
 
-  Widget PsychischeVerfassung (BuildContext context) {
-    return Center(
-      child: Column(
-        crossAxisAlignment:  CrossAxisAlignment.center,
-        children: <Widget>[
-          Text("In welcher psychischen Verfassung bist du heute?"),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Verfassung",
+  Widget Schmerzabfrage(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.05,
+              decoration: BoxDecoration(
+                  color: Styles.LIGHT_GREEN,
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(5)
+                  )
+              ),
+              child: Center(
+                child: Text(
+                  "Hast du Schmerzen?",
+                  style: Styles.textDefault,
+                ),
+              ),
             ),
-            controller: state.psychischeVerfassungController,
+
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: RaisedButton(
+                        onPressed: () => state.buttonSchmerzHandler(0),
+                        child: Text("Ja"),
+                        color: state.btnColorSchmerzabfrage[0]
+                    ),
+                  ),
+
+                  SizedBox(
+                    width:  MediaQuery.of(context).size.width * 0.3,
+                    child:  RaisedButton(
+                        onPressed: () => state.buttonSchmerzHandler(1),
+                        child: Text("Nein"),
+                        color: state.btnColorSchmerzabfrage[1]
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  Widget SchmerzabfrageStelle (BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Opacity(
+        opacity: state.visibilitySchmerzabfrage,
+        child: Center(
+          child: Column(
+            crossAxisAlignment:  CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.05,
+                decoration: BoxDecoration(
+                  color: Styles.LIGHT_GREEN,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    "Wenn ja an welchen Stellen?",
+                    style: Styles.textDefault,
+                  ),
+                ),
+              ),
+
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Schmerzen",
+                    fillColor: Styles.LIGHT_GREY,
+                  ),
+                  controller: state.schmerzAbfrageController,
+                ),
+              ),
+
+            ],
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  Widget PsychischeVerfassung (BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Center(
+        child: Column(
+          crossAxisAlignment:  CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              width: MediaQuery.of(context).size.width * 0.8,
+              decoration: BoxDecoration(
+                  color: Styles.LIGHT_GREEN,
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(5)
+                  )
+              ),
+              child: Center(
+                child: Text(
+                  "In welcher psychischen Verfassung bist du heute?",
+                  style: Styles.textDefault,
+                ),
+              ),
+            ),
+
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Psychische Verfassung",
+                ),
+                controller: state.psychischeVerfassungController,
+              ),
+            )
+
+          ],
+        ),
       ),
     );
   }
 
   Widget Abschlussbutton(BuildContext context) {
-    return Opacity(
-      opacity: state.visibilityButtonAbschluss,
-      child: RaisedButton(
-        onPressed: state.buttonAbschlussHandler,
-        child: Text("Abschluss"),
-      ),
+    return Container(
+        child: RaisedButton(
+          onPressed: state.abschlussButtonEnabled ? state.buttonAbschlussHandler: null,
+          color: Styles.LIGHT_GREEN,
+          disabledColor: Colors.red,
+          child: Text("Abschluss"),
+        ),
     );
   }
 

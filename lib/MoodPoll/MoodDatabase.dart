@@ -13,10 +13,10 @@ class MoodDatabase {
   Future<void> initaliseDatabase() async {
     String databasePath = await getDatabasesPath();
     database = openDatabase(
-      join(databasePath, "MoodDatabase"),
+      join(databasePath, "Mood"),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE Mood(DateTime TEXT PRIMARY KEY, MoodInPoints INTEGER, Schmerzen INTEGER, Schmerzbeschreibung TEXT, PsychologischeVerfassung TEXT)",
+          "CREATE TABLE Mood(DateTime TEXT PRIMARY KEY, MoodInPoints REAL, Schmerzen INTEGER, Schmerzbeschreibung TEXT, PsychologischeVerfassung TEXT)",
         );
       },
       version: 1,
