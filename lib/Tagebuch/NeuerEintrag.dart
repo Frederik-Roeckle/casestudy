@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Datenbank.dart';
@@ -10,7 +9,7 @@ class NeuerEintrag extends StatefulWidget {
 
 class _NeuerEintrag extends State<NeuerEintrag> {
   DateTime _dateTime;
-  String _formattedDate;
+
   final textFieldController = TextEditingController();
 
   Datenbank db = new Datenbank();
@@ -36,7 +35,6 @@ class _NeuerEintrag extends State<NeuerEintrag> {
                   ).then((date) {
                     setState(() {
                       _dateTime = date;
-
                     });
                     debugPrint('DateTime: $_dateTime');
                   });
