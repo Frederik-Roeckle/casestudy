@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_casestudy/MoodPoll/MoodPoll.dart';
 import 'package:flutter_app_casestudy/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/Tagebuch.dart';
+import 'package:path/path.dart';
 import 'homescreen.dart';
 import 'Kalender.dart';
 
@@ -14,6 +16,7 @@ void main() {
       '/Kalender': (context) => Kalender(),
       '/Physiotherapie': (context) => Physiotherapie(),
       '/Tagebuch': (context) => Tagebuch(),
+      '/MoodPoll': (context) => MoodPoll(),
     },
   ));
 }

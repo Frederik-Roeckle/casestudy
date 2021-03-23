@@ -15,6 +15,7 @@ class HomescreenList extends StatelessWidget {
             _routingTile(context, 'Kalender', '/Kalender'),
             _routingTile(context, 'Physiotherapie', '/Physiotherapie'),
             _routingTile(context, 'Tagebuch', '/Tagebuch'),
+            _routingTile(context, "MoodPoll", "/MoodPoll")
           ],
         ));
   }
