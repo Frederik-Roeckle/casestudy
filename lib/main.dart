@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_app_casestudy/Physiotherapie.dart';
-import 'file:///C:/Users/Ampel/casestudy/lib/Tagebuch/Tagebuch.dart';
-import 'file:///C:/Users/Ampel/casestudy/lib/Tagebuch/Tagebucheintraege.dart';
-
+import 'package:flutter_app_casestudy/Tagebuch/Tagebuch.dart';
+import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
+import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'homescreen.dart';
 import 'Kalender.dart';
-import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.Dart';
 
 void main() {
   return runApp(MaterialApp(
