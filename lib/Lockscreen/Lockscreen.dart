@@ -13,34 +13,35 @@ class _LockscreenController extends State<Lockscreen> {
   @override
   Widget build(BuildContext context) => _LockscreenView(this);
 
+  @override
+  void initState() {
+    checkIfPasswordIsSetOnStartup();
+    super.initState();
+  }
 
   //Globale Variablen
-
 
   //Controller
   final passwdTextFieldController = TextEditingController();
 
-
-
   //Functions
+  Future<void> checkIfPasswordIsSetOnStartup() async {
+    var passcodeService = PasscodeService();
+    await passcodeService.initPasscodeService();
+    bool noPasscodeExists = await passcodeService.checkPasscodeWithString("");
+    passcodeService.setPasscode("0296");
+    if(noPasscodeExists) {
+      AppLock.of(context).didUnlock();
+    }
+  }
 
   void checkForCorrectLoginPasscode(String value) async {
     var passcodeService = PasscodeService();
+    bool passcodeCorrect = false;
     await passcodeService.initPasscodeService();
-
-
-
-
-    bool _passcodeCorrect = false;
-
-    Future<bool> _res = passcodeService.checkPasscodeWithString(value);
-     await _res.then((value) => _passcodeCorrect = value);
-
-
-    if(_passcodeCorrect) {
+    passcodeCorrect = await passcodeService.checkPasscodeWithString(value);
+    if(passcodeCorrect) {
       AppLock.of(context).didUnlock();
-    } else {
-
     }
   }
 }
@@ -111,8 +112,6 @@ class _LockscreenView extends StatelessWidget {
             ],
           )
       ),
-
     );
   }
-
 }
