@@ -5,6 +5,7 @@ import 'package:flutter_app_casestudy/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebuch.dart';
 import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
+import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
 import 'homescreen.dart';
 import 'Kalender.dart';
 
@@ -20,6 +21,7 @@ void main() {
       '/Tagebuch': (context) => Tagebuch(),
       '/NeuerEintrag': (context) => NeuerEintrag(),
       '/Tagebucheintraege': (context) => Tagebucheintraege(),
+      '/EintragBearbeiten': (context) => EintragBearbeiten(),
     },
   ));
 }

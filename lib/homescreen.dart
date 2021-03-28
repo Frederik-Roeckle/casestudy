@@ -25,9 +25,9 @@ class HomescreenList extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(30.0),
           decoration: BoxDecoration(
-              color: Styles.tileColor,
+              color: Styles.strongGreen,
               borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: new FlatButton(
+          child: new TextButton(
               onPressed: () => Navigator.pushNamed(context, route),
               child: new Text(funktion, style: Styles.textDefault)),
         ));
