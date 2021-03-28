@@ -29,13 +29,31 @@ class _NeuerEintrag extends State<NeuerEintrag> {
           children: <Widget>[
             _datePicker(),
             _textField(),
+            _submitEntry(),
           ]),
     );
   }
 
+  Widget _submitEntry() {
+    return Container(
+        //padding: EdgeInsets.all(30.0),
+        decoration: BoxDecoration(
+            color: Styles.lightGreen,
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: new TextButton(
+          onPressed: () => _newEntry(_dateTime, textFieldController.text),
+          child: Text(
+            'Eintrag anlegen',
+            style: Styles.textDefault,
+          ),
+        ));
+  }
+
   Widget _textField() {
     return Container(
-        padding: EdgeInsets.all(15.0),
+        /* padding: EdgeInsets.all(15.0), */
+        margin: EdgeInsets.all(10),
+        height: 300,
         child: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -44,24 +62,37 @@ class _NeuerEintrag extends State<NeuerEintrag> {
             ),
             controller: textFieldController,
             scrollController: scrollController,
+            maxLines: 60,
             onSubmitted: (value) {
               _newEntry(_dateTime, textFieldController.text);
             }));
   }
 
   Future<Widget> _newEntry(DateTime date, String text) async {
+    bool suc = false;
     String _date = date.toIso8601String();
     debugPrint('DateTime: $_dateTime');
-    await db.insertDiary(_date, text);
-    List<Diary> liste = await db.diaries();
-    debugPrint(liste.last.entry);
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) => _buildPopupDialog(context),
-    );
+    await db.insertDiary(_date, text).whenComplete(() => suc = true);
+    if (suc == true) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => _buildPopupDialog(context, suc),
+      );
+    } else {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => _buildPopupDialog(context, suc),
+      );
+    }
   }
 
-  Widget _buildPopupDialog(BuildContext context) {
+  Widget _buildPopupDialog(BuildContext context, bool suc) {
+    String status;
+    if (suc == true) {
+      status = "Erfolgreich gespeichert!";
+    } else {
+      status = "Fehler: Tagebucheintrag bereits vorhanden";
+    }
     return new AlertDialog(
       title: const Text('Neuer Tagebucheintrag'),
       content: new Column(
@@ -69,7 +100,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Erfolgreich gespeichert!",
+            status,
             style: TextStyle(color: Color(0xff000000)),
           ),
         ],
@@ -114,7 +145,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     );
   }
 
-  String _dateFormatter(DateTime date) {
+  _dateFormatter(DateTime date) {
     String dateString = date.toIso8601String();
     var onlyDate = dateString.split("T");
     var dateInFormatText = onlyDate[0].split("-");
