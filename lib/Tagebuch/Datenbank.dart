@@ -8,8 +8,6 @@ import 'package:sqflite/sqflite.dart';
 class Datenbank {
   Future<Database> database;
 
-
-
   Future<void> databaseInit() async {
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -37,7 +35,8 @@ class Datenbank {
     final Database db = await database;
 
     // Query the table for all The diaries.
-    final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * FROM diaries ORDER BY date(date)');
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT * FROM diaries ORDER BY date(date) DESC');
 
     // Convert the List<Map<String, dynamic> into a List<Diary>.
     return List.generate(maps.length, (i) {
