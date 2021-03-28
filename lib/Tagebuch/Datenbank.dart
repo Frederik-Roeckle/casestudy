@@ -47,9 +47,11 @@ class Datenbank {
     });
   }
 
-  Future<void> updateDiary(Diary diary) async {
+  Future<void> updateDiary(String date, String text) async {
     // Get a reference to the database.
+    await databaseInit();
     final db = await database;
+    Diary diary = Diary(date: date, entry: text);
 
     // Update the given Diary.
     await db.update(
@@ -83,8 +85,9 @@ class Datenbank {
     );
   }
 
-  Future<void> deleteDiary(DateTime date) async {
+  Future<void> deleteDiary(String date) async {
     // Get a reference to the database.
+    await databaseInit();
     final db = await database;
 
     // Remove the Diary from the database.
@@ -95,6 +98,15 @@ class Datenbank {
         whereArgs: [
           date,
         ]);
+  }
+
+  Future<void> deleteAllDiaries(String date) async {
+    // Get a reference to the database.
+    await databaseInit();
+    final db = await database;
+
+    // Remove the Diary from the database.
+    await db.rawQuery('Delete FROM diaries');
   }
 }
 
