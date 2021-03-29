@@ -1,13 +1,9 @@
 import 'dart:async';
-
-
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodEntry.Dart';
 
 class MoodDatabase {
-
   Future<Database> database;
 
   Future<void> initaliseDatabase() async {
@@ -23,9 +19,10 @@ class MoodDatabase {
     );
   }
 
-  Future<void> insertElement (MoodEntry moodEntry) async {
-      final Database db = await database;
-      await db.insert("Mood", moodEntry.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  Future<void> insertElement(MoodEntry moodEntry) async {
+    final Database db = await database;
+    await db.insert("Mood", moodEntry.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<MoodEntry>> retrieveElements() async {
@@ -46,6 +43,4 @@ class MoodDatabase {
       );
     });
   }
-
-
 }
