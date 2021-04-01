@@ -60,7 +60,8 @@ class Datenbank {
       // Ensure that the Diary has a matching id.
       where: "date = ?",
       // Pass the Diary's id as a whereArg to prevent SQL injection.
-      whereArgs: [diary.date],
+      whereArgs: [date],
+      conflictAlgorithm: ConflictAlgorithm.abort,
     );
   }
 
@@ -100,7 +101,7 @@ class Datenbank {
         ]);
   }
 
-  Future<void> deleteAllDiaries(String date) async {
+  Future<void> deleteAllDiaries() async {
     // Get a reference to the database.
     await databaseInit();
     final db = await database;

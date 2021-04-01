@@ -72,7 +72,9 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     bool suc = false;
     String _date = date.toIso8601String();
     debugPrint('DateTime: $_dateTime');
+
     await db.insertDiary(_date, text).whenComplete(() => suc = true);
+    debugPrint('suc: $suc');
     if (suc == true) {
       return showDialog(
         context: context,
@@ -88,6 +90,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
 
   Widget _buildPopupDialog(BuildContext context, bool suc) {
     String status;
+    debugPrint('suc: $suc');
     if (suc == true) {
       status = "Erfolgreich gespeichert!";
     } else {
@@ -108,7 +111,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
       actions: <Widget>[
         new TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context, '/Tagebuch');
           },
           child: Text('Close', style: TextStyle(color: Color(0xff000000))),
         ),

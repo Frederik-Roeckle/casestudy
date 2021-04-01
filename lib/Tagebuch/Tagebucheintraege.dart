@@ -1,5 +1,5 @@
 import 'package:flutter_app_casestudy/Tagebuch/Datenbank.dart';
-import 'package:intl/intl.dart';
+
 import '../styles.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +40,7 @@ class _Tagebucheintraege extends State<Tagebucheintraege> {
   }
 
   Widget _buildRow(Diary diary) {
+    debugPrint('diary.date$diary');
     var onlyDate = diary.date.split("T");
     var dateInFormatText = onlyDate[0].split("-");
 

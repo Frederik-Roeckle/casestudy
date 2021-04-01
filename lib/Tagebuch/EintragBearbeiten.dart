@@ -8,9 +8,9 @@ class EintragBearbeiten extends StatefulWidget {
 }
 
 class _EintragBearbeiten extends State<EintragBearbeiten> {
-  static const routeName = '/EintragBearbeiten';
-
+  String _date;
   DateTime _dateTime;
+  String _newDate;
   String _choosingDate; //formatted String
   String _diaryText; //Textfield Inhalt
 
@@ -25,7 +25,11 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
     if (_diaryText == null) {
       _diaryText = args.entry;
       textFieldController.text = _diaryText;
+      _date = args.date;
+      _newDate = args.date;
       _dateTime = DateTime.parse(args.date);
+      debugPrint('args.date $_date');
+      debugPrint('_dateTime $_dateTime');
       _dateFormatter(args.date);
     }
 
@@ -33,9 +37,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         appBar: AppBar(
             title: Text("Eintrag Bearbeiten", style: Styles.headerLarge),
             backgroundColor: Styles.appBarColor),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: ListView(
           children: [
             _datePicker(),
             _textField(),
@@ -59,7 +61,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
             scrollController: scrollController,
             maxLines: 60,
             onSubmitted: (value) {
-              _changeEntry(_dateTime, textFieldController.text);
+              _changeEntry(_date, textFieldController.text);
             }));
   }
 
@@ -71,9 +73,9 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
             color: Styles.lightGreen,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: new TextButton(
-          onPressed: () => _changeEntry(_dateTime, textFieldController.text),
+          onPressed: () => _changeEntry(_date, textFieldController.text),
           child: Text(
-            'Eintrag anlegen',
+            'Eintrag bearbeiten',
             style: Styles.textDefault,
           ),
         ));
@@ -87,7 +89,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
             color: Colors.red,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: new TextButton(
-          onPressed: () => _deleteDiary(_dateTime.toIso8601String()),
+          onPressed: () => _deleteDiary(_date),
           child: Text(
             'Eintrag Löschen',
             style: Styles.textDefault,
@@ -106,11 +108,16 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         );
   }
 
-  Future<Widget> _changeEntry(DateTime date, String text) async {
+  Future<Widget> _changeEntry(String date, String text) async {
     bool suc = false;
-    String _date = date.toIso8601String();
-    debugPrint('DateTime: $_dateTime');
-    await db.updateDiary(_date, text).whenComplete(() => suc = true);
+
+    debugPrint('Date: $date');
+    if (_newDate == _date) {
+      await db.updateDiary(date, text).whenComplete(() => suc = true);
+    } else {
+      await db.insertDiary(_newDate, text);
+      await db.deleteDiary(date).whenComplete(() => suc = true);
+    }
     if (suc == true) {
       return showDialog(
         context: context,
@@ -120,8 +127,8 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
     } else {
       return showDialog(
         context: context,
-        builder: (BuildContext context) => _buildPopupDialog(
-            context, suc, "Fehler: Tagebucheintrag bereits vorhanden"),
+        builder: (BuildContext context) =>
+            _buildPopupDialog(context, suc, "Fehler!"),
       );
     }
   }
@@ -148,7 +155,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
       actions: <Widget>[
         new TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context, '/Tagebucheintraege');
           },
           child: Text('Close', style: TextStyle(color: Color(0xff000000))),
         ),
@@ -171,6 +178,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
             lastDate: DateTime(2222),
           ).then((date) {
             setState(() {
+              _newDate = date.toIso8601String();
               _dateTime = date;
               _dateFormatter(date.toIso8601String());
             });
@@ -186,6 +194,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
   }
 
   _dateFormatter(String date) {
+    debugPrint('dateformatter date$date');
     var onlyDate = date.split("T");
     var dateInFormatText = onlyDate[0].split("-");
 
