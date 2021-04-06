@@ -8,6 +8,7 @@ import 'package:flutter_app_casestudy/services/auth.dart';
 import 'package:flutter_app_casestudy/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'Kalender.dart';
+import 'MoodPoll/MoodPoll.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
