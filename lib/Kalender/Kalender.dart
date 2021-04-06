@@ -1,4 +1,4 @@
-import 'styles.dart';
+import '../styles.dart';
 import 'package:flutter/material.dart';
 
 class Kalender extends StatelessWidget {
