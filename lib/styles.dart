@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Styles {
-  static const _textSizeLarge = 40.0;
+  static const _textSizeLarge = 35.0;
   static const _textSizeDefault = 20.0;
   static final Color _textColorStrong = _hexToColor('FFFFFF');
   static final Color _textColorDefault = _hexToColor('FFFFFF');
