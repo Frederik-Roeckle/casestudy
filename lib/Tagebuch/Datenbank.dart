@@ -82,7 +82,7 @@ class Datenbank {
     await db.insert(
       'diaries',
       __diary,
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.fail,
     );
   }
 

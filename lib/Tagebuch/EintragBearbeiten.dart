@@ -101,8 +101,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
     //await db.deleteAllDiaries(date);
     await db
         .deleteDiary(date)
-        .onError(
-            (error, stackTrace) => _buildPopupDialog(context, false, 'Fehler'))
+        .onError((error, stackTrace) => _buildPopupDialog(context, 'Fehler'))
         .whenComplete(
           () => Navigator.pushNamed(context, '/Tagebucheintraege'),
         );
@@ -122,24 +121,18 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
       return showDialog(
         context: context,
         builder: (BuildContext context) =>
-            _buildPopupDialog(context, suc, "Erfolgreich gespeichert!"),
+            _buildPopupDialog(context, "Erfolgreich gespeichert!"),
       );
     } else {
       return showDialog(
         context: context,
         builder: (BuildContext context) =>
-            _buildPopupDialog(context, suc, "Fehler!"),
+            _buildPopupDialog(context, "Fehler!"),
       );
     }
   }
 
-  Widget _buildPopupDialog(BuildContext context, bool suc, String message) {
-    String status;
-    if (suc == true) {
-      status = message;
-    } else {
-      status = message;
-    }
+  Widget _buildPopupDialog(BuildContext context, String status) {
     return new AlertDialog(
       title: const Text('Eintrag Bearbeiten'),
       content: new Column(
@@ -156,6 +149,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         new TextButton(
           onPressed: () {
             Navigator.pushNamed(context, '/Tagebucheintraege');
+            //Navigator.of(context).pop();
           },
           child: Text('Close', style: TextStyle(color: Color(0xff000000))),
         ),

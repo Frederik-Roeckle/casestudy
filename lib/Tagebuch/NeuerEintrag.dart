@@ -74,28 +74,24 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     debugPrint('DateTime: $_dateTime');
 
     await db.insertDiary(_date, text).whenComplete(() => suc = true);
+
     debugPrint('suc: $suc');
     if (suc == true) {
       return showDialog(
         context: context,
-        builder: (BuildContext context) => _buildPopupDialog(context, suc),
+        builder: (BuildContext context) =>
+            _buildPopupDialog(context, 'Erfolgreich angelegt!'),
       );
     } else {
       return showDialog(
         context: context,
-        builder: (BuildContext context) => _buildPopupDialog(context, suc),
+        builder: (BuildContext context) =>
+            _buildPopupDialog(context, 'Fehler!'),
       );
     }
   }
 
-  Widget _buildPopupDialog(BuildContext context, bool suc) {
-    String status;
-    debugPrint('suc: $suc');
-    if (suc == true) {
-      status = "Erfolgreich gespeichert!";
-    } else {
-      status = "Fehler: Tagebucheintrag bereits vorhanden";
-    }
+  Widget _buildPopupDialog(BuildContext context, String status) {
     return new AlertDialog(
       title: const Text('Neuer Tagebucheintrag'),
       content: new Column(
