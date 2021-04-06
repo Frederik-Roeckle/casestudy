@@ -11,7 +11,22 @@ class Physiotherapie extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [],
+          children: [_routingTile(context, 'Kraft', '/Physiotherapie/Kraft')],
         ));
+  }
+
+  Widget _routingTile(context, String funktion, String route) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      child: Container(
+        padding: EdgeInsets.all(30.0),
+        decoration: BoxDecoration(
+            color: Styles.tileColor,
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: new TextButton(
+            onPressed: () => Navigator.pushNamed(context, route),
+            child: new Text(funktion, style: Styles.textDefault)),
+      ),
+    );
   }
 }

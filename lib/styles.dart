@@ -15,7 +15,6 @@ class Styles {
   static final Color LIGHT_GREY = Color(0xFFA6A6A6);
   static final Color STRONG_GREY = Color(0xFF7C7C7C);
 
-
   static final navBarTitle = TextStyle(fontFamily: _fontNameDefault);
 
   static final headerLarge = TextStyle(
@@ -32,4 +31,19 @@ class Styles {
   static Color _hexToColor(String code) {
     return Color(int.parse(code.substring(0, 6), radix: 16) + 0xFF000000);
   }
+
+
+  static const textInputDecoration = InputDecoration(
+    fillColor: Colors.white,
+    filled: true,
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white, width: 2.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.pink, width: 2.0),
+    ),
+  );
 }
+
+
+

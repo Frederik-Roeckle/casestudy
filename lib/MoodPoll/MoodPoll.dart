@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app_casestudy/styles.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodDatabase.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodEntry.Dart';
-import 'package:path/path.dart';
-
 
 class MoodPoll extends StatefulWidget {
   @override
@@ -25,18 +20,16 @@ class _MoodPollController extends State<MoodPoll> {
   bool abschlussButtonEnabled = false;
   int schmerz = 0;
 
-
   //Controller
 
   final schmerzAbfrageController = TextEditingController();
   final psychischeVerfassungController = TextEditingController();
 
-
   //UI Handler and Co. below
 
   void buttonSchmerzHandler(int position) {
-    if(position == 0) {
-      if(btnColorSchmerzabfrage[0] == Styles.LIGHT_GREY) {
+    if (position == 0) {
+      if (btnColorSchmerzabfrage[0] == Styles.LIGHT_GREY) {
         btnColorSchmerzabfrage[0] = Styles.LIGHT_GREEN;
         btnColorSchmerzabfrage[1] = Styles.LIGHT_GREY;
         schmerz = 1;
@@ -48,8 +41,8 @@ class _MoodPollController extends State<MoodPoll> {
         setVisibiltySchmerzabfrage(0);
         setAbschlussButtonVisibilityDependingOnUserInput();
       }
-    } else if(position == 1) {
-      if(btnColorSchmerzabfrage[1] == Styles.LIGHT_GREY) {
+    } else if (position == 1) {
+      if (btnColorSchmerzabfrage[1] == Styles.LIGHT_GREY) {
         btnColorSchmerzabfrage[0] = Styles.LIGHT_GREY;
         btnColorSchmerzabfrage[1] = Styles.LIGHT_GREEN;
         schmerz = 0;
@@ -71,7 +64,6 @@ class _MoodPollController extends State<MoodPoll> {
   }
 
   void buttonAbschlussHandler() async {
-
     //TODO Speichern der Infos in der DB
     MoodDatabase moodDatabase = new MoodDatabase();
     String currentDate = DateTime.now().toIso8601String();
@@ -89,7 +81,14 @@ class _MoodPollController extends State<MoodPoll> {
   }
 
   void setAbschlussButtonVisibilityDependingOnUserInput() {
-    if((sliderValue == 0 || sliderValue == 20 || sliderValue == 40 || sliderValue == 60 || sliderValue == 80 || sliderValue == 100) && (btnColorSchmerzabfrage[0] == Styles.LIGHT_GREEN || btnColorSchmerzabfrage[1] == Styles.LIGHT_GREEN)) {
+    if ((sliderValue == 0 ||
+            sliderValue == 20 ||
+            sliderValue == 40 ||
+            sliderValue == 60 ||
+            sliderValue == 80 ||
+            sliderValue == 100) &&
+        (btnColorSchmerzabfrage[0] == Styles.LIGHT_GREEN ||
+            btnColorSchmerzabfrage[1] == Styles.LIGHT_GREEN)) {
       abschlussButtonEnabled = true;
     } else {
       abschlussButtonEnabled = false;
@@ -105,30 +104,26 @@ class _MoodPollController extends State<MoodPoll> {
 
   //get the Unicode Smiley for the mood back
   String getSmileyForMood() {
-    if(sliderValue == 0) {
+    if (sliderValue == 0) {
       return '\u{1F62D}';
-    } else if(sliderValue == 20) {
+    } else if (sliderValue == 20) {
       return '\u{1F622}';
-    } else if(sliderValue == 40) {
+    } else if (sliderValue == 40) {
       return '\u{1F610}';
-    } else if(sliderValue == 60) {
+    } else if (sliderValue == 60) {
       return '\u{1F642}';
-    } else if(sliderValue == 80) {
+    } else if (sliderValue == 80) {
       return '\u{1F600}';
     } else {
       return '\u{1F601}';
     }
   }
-
 }
 
-class _MoodPollView extends StatelessWidget{
-
+class _MoodPollView extends StatelessWidget {
   // Ueber state wird auf das Controller Objekt referenziert wo alle Handler sind.
   final _MoodPollController state;
   const _MoodPollView(this.state, {Key key}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +131,6 @@ class _MoodPollView extends StatelessWidget{
       appBar: AppBar(
         title: Text("Stimmungsabfrage"),
         backgroundColor: Styles.STRONG_GREEN,
-
       ),
       body: Container(
         child: ListView(
@@ -150,9 +144,7 @@ class _MoodPollView extends StatelessWidget{
         ),
       ),
     );
-
   }
-
 
   Widget Stimmungsabfrage(BuildContext context) {
     return Container(
@@ -165,15 +157,11 @@ class _MoodPollView extends StatelessWidget{
               height: MediaQuery.of(context).size.height * 0.1,
               decoration: BoxDecoration(
                 color: Styles.LIGHT_GREEN,
-                borderRadius: BorderRadius.all(
-                    Radius.circular(5)
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
               child: Center(
-                child: Text(
-                    "Wie geht es Dir heute?",
-                    style: Styles.textDefault
-                ),
+                child:
+                    Text("Wie geht es Dir heute?", style: Styles.textDefault),
               ),
             ),
             Container(
@@ -208,10 +196,7 @@ class _MoodPollView extends StatelessWidget{
               height: MediaQuery.of(context).size.height * 0.05,
               decoration: BoxDecoration(
                   color: Styles.LIGHT_GREEN,
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(5)
-                  )
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Center(
                 child: Text(
                   "Hast du Schmerzen?",
@@ -219,7 +204,6 @@ class _MoodPollView extends StatelessWidget{
                 ),
               ),
             ),
-
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -229,17 +213,14 @@ class _MoodPollView extends StatelessWidget{
                     child: RaisedButton(
                         onPressed: () => state.buttonSchmerzHandler(0),
                         child: Text("Ja"),
-                        color: state.btnColorSchmerzabfrage[0]
-                    ),
+                        color: state.btnColorSchmerzabfrage[0]),
                   ),
-
                   SizedBox(
-                    width:  MediaQuery.of(context).size.width * 0.3,
-                    child:  RaisedButton(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: RaisedButton(
                         onPressed: () => state.buttonSchmerzHandler(1),
                         child: Text("Nein"),
-                        color: state.btnColorSchmerzabfrage[1]
-                    ),
+                        color: state.btnColorSchmerzabfrage[1]),
                   )
                 ],
               ),
@@ -250,15 +231,14 @@ class _MoodPollView extends StatelessWidget{
     );
   }
 
-
-  Widget SchmerzabfrageStelle (BuildContext context) {
+  Widget SchmerzabfrageStelle(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Opacity(
         opacity: state.visibilitySchmerzabfrage,
         child: Center(
           child: Column(
-            crossAxisAlignment:  CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width * 0.8,
@@ -276,7 +256,6 @@ class _MoodPollView extends StatelessWidget{
                   ),
                 ),
               ),
-
               Container(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                 width: MediaQuery.of(context).size.width * 0.8,
@@ -289,7 +268,6 @@ class _MoodPollView extends StatelessWidget{
                   controller: state.schmerzAbfrageController,
                 ),
               ),
-
             ],
           ),
         ),
@@ -297,22 +275,19 @@ class _MoodPollView extends StatelessWidget{
     );
   }
 
-  Widget PsychischeVerfassung (BuildContext context) {
+  Widget PsychischeVerfassung(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Center(
         child: Column(
-          crossAxisAlignment:  CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
                   color: Styles.LIGHT_GREEN,
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(5)
-                  )
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Center(
                 child: Text(
                   "In welcher psychischen Verfassung bist du heute?",
@@ -320,7 +295,6 @@ class _MoodPollView extends StatelessWidget{
                 ),
               ),
             ),
-
             Container(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               width: MediaQuery.of(context).size.width * 0.8,
@@ -332,7 +306,6 @@ class _MoodPollView extends StatelessWidget{
                 controller: state.psychischeVerfassungController,
               ),
             )
-
           ],
         ),
       ),
@@ -341,15 +314,13 @@ class _MoodPollView extends StatelessWidget{
 
   Widget Abschlussbutton(BuildContext context) {
     return Container(
-        child: RaisedButton(
-          onPressed: state.abschlussButtonEnabled ? state.buttonAbschlussHandler: null,
-          color: Styles.LIGHT_GREEN,
-          disabledColor: Colors.red,
-          child: Text("Abschluss"),
-        ),
+      child: RaisedButton(
+        onPressed:
+            state.abschlussButtonEnabled ? state.buttonAbschlussHandler : null,
+        color: Styles.LIGHT_GREEN,
+        disabledColor: Colors.red,
+        child: Text("Abschluss"),
+      ),
     );
   }
-
-
 }
-
