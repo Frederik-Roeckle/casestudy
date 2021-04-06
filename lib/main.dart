@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: AppLock(
+
         builder: (args) =>
             MaterialApp(home: Wrapper(), initialRoute: '/', routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/NeuerEintrag': (context) => NeuerEintrag(),
           '/Tagebucheintraege': (context) => Tagebucheintraege(),
           '/EintragBearbeiten': (context) => EintragBearbeiten(),
+
         }),
         lockScreen: Lockscreen(),
       ),
