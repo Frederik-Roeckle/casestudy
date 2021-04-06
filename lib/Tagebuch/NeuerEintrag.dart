@@ -107,7 +107,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
       actions: <Widget>[
         new TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/Tagebuch');
+            Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
           },
           child: Text('Close', style: TextStyle(color: Color(0xff000000))),
         ),

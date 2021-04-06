@@ -103,7 +103,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         .deleteDiary(date)
         .onError((error, stackTrace) => _buildPopupDialog(context, 'Fehler'))
         .whenComplete(
-          () => Navigator.pushNamed(context, '/Tagebucheintraege'),
+          () => Navigator.popUntil(context, ModalRoute.withName('/Tagebuch')),
         );
   }
 
@@ -148,7 +148,8 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
       actions: <Widget>[
         new TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/Tagebucheintraege');
+            Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
+
             //Navigator.of(context).pop();
           },
           child: Text('Close', style: TextStyle(color: Color(0xff000000))),
