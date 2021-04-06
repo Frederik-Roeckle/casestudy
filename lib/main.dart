@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
 import 'package:flutter_app_casestudy/Physiotherapie.dart';
-import 'package:flutter_app_casestudy/Tagebuch.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
 import 'package:flutter_app_casestudy/wrapper.dart';
@@ -14,6 +13,7 @@ import 'MoodPoll/MoodPoll.dart';
 import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
+import 'Tagebuch/Tagebuch.dart';
 
 
 void main() async {

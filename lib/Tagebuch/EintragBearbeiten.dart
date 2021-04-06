@@ -70,7 +70,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
         //padding: EdgeInsets.all(30.0),
         decoration: BoxDecoration(
-            color: Styles.lightGreen,
+            color: Styles.LIGHT_GREEN,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: new TextButton(
           onPressed: () => _changeEntry(_date, textFieldController.text),
@@ -182,7 +182,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         },
         child: new Text(
           _choosingDate,
-          style: TextStyle(color: Styles.strongGrey, fontSize: 20),
+          style: TextStyle(color: Styles.STRONG_GREY, fontSize: 20),
         ),
       )),
     );

@@ -36,7 +36,7 @@ class _Tagebuch extends State<Tagebuch> {
         child: Container(
           padding: EdgeInsets.all(30.0),
           decoration: BoxDecoration(
-              color: Styles.strongGreen,
+              color: Styles.STRONG_GREEN,
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: new TextButton(
               onPressed: () => Navigator.pushNamed(context, route),

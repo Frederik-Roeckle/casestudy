@@ -54,7 +54,7 @@ class _Tagebucheintraege extends State<Tagebucheintraege> {
         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         child: Container(
             decoration: BoxDecoration(
-                color: Styles.strongGreen,
+                color: Styles.STRONG_GREEN,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             child: TextButton(
                 onPressed: () => Navigator.pushNamed(

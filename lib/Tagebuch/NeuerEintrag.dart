@@ -38,7 +38,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     return Container(
         //padding: EdgeInsets.all(30.0),
         decoration: BoxDecoration(
-            color: Styles.lightGreen,
+            color: Styles.LIGHT_GREEN,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: new TextButton(
           onPressed: () => _newEntry(_dateTime, textFieldController.text),
@@ -138,7 +138,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
         },
         child: new Text(
           _choosingDate,
-          style: TextStyle(color: Styles.strongGrey, fontSize: 20),
+          style: TextStyle(color: Styles.STRONG_GREEN, fontSize: 20),
         ),
       )),
     );
