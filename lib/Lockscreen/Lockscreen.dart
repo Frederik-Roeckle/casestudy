@@ -29,8 +29,8 @@ class _LockscreenController extends State<Lockscreen> {
     var passcodeService = PasscodeService();
     await passcodeService.initPasscodeService();
     bool noPasscodeExists = await passcodeService.checkPasscodeWithString("");
-    passcodeService.setPasscode("1234");  //Set Inital Password
-    if(noPasscodeExists) {
+    passcodeService.setPasscode("1234"); //Set Inital Password
+    if (noPasscodeExists) {
       AppLock.of(context).didUnlock();
     }
   }
@@ -40,14 +40,13 @@ class _LockscreenController extends State<Lockscreen> {
     bool passcodeCorrect = false;
     await passcodeService.initPasscodeService();
     passcodeCorrect = await passcodeService.checkPasscodeWithString(value);
-    if(passcodeCorrect) {
+    if (passcodeCorrect) {
       AppLock.of(context).didUnlock();
     }
   }
 }
 
 class _LockscreenView extends StatelessWidget {
-
   final _LockscreenController state;
   const _LockscreenView(this.state, {Key key}) : super(key: key);
 
@@ -56,9 +55,7 @@ class _LockscreenView extends StatelessWidget {
     return Scaffold(
       body: Container(
           padding: EdgeInsets.fromLTRB(50, 50, 50, 50),
-          decoration: BoxDecoration(
-          color: Styles.STRONG_GREEN
-      ),
+          decoration: BoxDecoration(color: Styles.STRONG_GREEN),
           child: ListView(
             children: <Widget>[
               Container(
@@ -73,28 +70,16 @@ class _LockscreenView extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   showCursor: false,
                   decoration: InputDecoration(
-                    labelText: "Passcode",
-                    fillColor: Styles.LIGHT_GREY,
-                    filled: true,
-                    labelStyle: TextStyle(
-                      color: Styles.LIGHT_GREEN
-                    ),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Styles.LIGHT_GREEN
-                      )
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Styles.LIGHT_GREEN
-                      )
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Styles.LIGHT_GREEN
-                      )
-                    )
-                  ),
+                      labelText: "Passcode",
+                      fillColor: Styles.WHITE,
+                      filled: true,
+                      labelStyle: TextStyle(color: Styles.LIGHT_GREEN),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Styles.LIGHT_GREEN)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Styles.LIGHT_GREEN)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Styles.LIGHT_GREEN))),
                 ),
               ),
               Container(
@@ -105,13 +90,13 @@ class _LockscreenView extends StatelessWidget {
                   ),
                   color: Styles.LIGHT_GREEN,
                   onPressed: () {
-                    state.checkForCorrectLoginPasscode(state.passwdTextFieldController.text);
+                    state.checkForCorrectLoginPasscode(
+                        state.passwdTextFieldController.text);
                   },
                 ),
               ),
             ],
-          )
-      ),
+          )),
     );
   }
 }

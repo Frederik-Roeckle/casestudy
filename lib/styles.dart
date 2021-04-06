@@ -7,8 +7,8 @@ class Styles {
   static final Color _textColorDefault = _hexToColor('FFFFFF');
   static final String _fontNameDefault = 'Bahnschrift';
 
-  static final Color tileColor = Color(0xff64B6AC);
-  static final Color appBarColor = Color(0xff0C1B33);
+  static final Color tileColor = STRONG_GREEN;
+  static final Color appBarColor = STRONG_GREEN;
   static final Color STRONG_GREEN = Color(0xFF00B050);
   static final Color LIGHT_GREEN = Color(0xFF00CC5C);
   static final Color WHITE = Color(0xFFFCFCFF);
@@ -32,7 +32,6 @@ class Styles {
     return Color(int.parse(code.substring(0, 6), radix: 16) + 0xFF000000);
   }
 
-
   static const textInputDecoration = InputDecoration(
     fillColor: Colors.white,
     filled: true,
@@ -44,6 +43,3 @@ class Styles {
     ),
   );
 }
-
-
-

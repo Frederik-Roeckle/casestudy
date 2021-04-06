@@ -10,7 +10,7 @@ class HomescreenList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Übersicht", style: Styles.headerLarge),
-        backgroundColor: Styles.appBarColor,
+        backgroundColor: Styles.STRONG_GREEN,
         actions: <Widget>[
           TextButton.icon(
             icon: Icon(Icons.person),
