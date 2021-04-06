@@ -6,15 +6,15 @@ import 'package:flutter_app_casestudy/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
 import 'package:flutter_app_casestudy/wrapper.dart';
+import 'package:flutter_app_lock/flutter_app_lock.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
-import 'Kalender.dart';
+import 'Kalender/Kalender.dart';
 import 'MoodPoll/MoodPoll.dart';
 import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
 import 'Tagebuch/Tagebuch.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,18 +29,22 @@ class MyApp extends StatelessWidget {
     return StreamProvider<Userr>.value(
       value: AuthService().user,
       initialData: null,
-      child: MaterialApp(home: Wrapper(), initialRoute: '/', routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        // '/': (context) => HomescreenList(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/Kalender': (context) => Kalender(),
-        '/Physiotherapie': (context) => Physiotherapie(),
-        '/Tagebuch': (context) => Tagebuch(),
-        '/MoodPoll': (context) => MoodPoll(),
-        '/NeuerEintrag': (context) => NeuerEintrag(),
-        '/Tagebucheintraege': (context) => Tagebucheintraege(),
-        '/EintragBearbeiten': (context) => EintragBearbeiten(),
-      }),
+      child: AppLock(
+        builder: (args) =>
+            MaterialApp(home: Wrapper(), initialRoute: '/', routes: {
+          // When navigating to the "/" route, build the FirstScreen widget.
+          // '/': (context) => HomescreenList(),
+          // When navigating to the "/second" route, build the SecondScreen widget.
+          '/Kalender': (context) => Kalender(),
+          '/Physiotherapie': (context) => Physiotherapie(),
+          '/Tagebuch': (context) => Tagebuch(),
+          '/MoodPoll': (context) => MoodPoll(),
+          '/NeuerEintrag': (context) => NeuerEintrag(),
+          '/Tagebucheintraege': (context) => Tagebucheintraege(),
+          '/EintragBearbeiten': (context) => EintragBearbeiten(),
+        }),
+        lockScreen: Lockscreen(),
+      ),
     );
   }
 }
