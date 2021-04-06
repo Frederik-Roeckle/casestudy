@@ -32,6 +32,7 @@ class Styles {
     return Color(int.parse(code.substring(0, 6), radix: 16) + 0xFF000000);
   }
 
+
   static const textInputDecoration = InputDecoration(
     fillColor: Colors.white,
     filled: true,
@@ -43,3 +44,6 @@ class Styles {
     ),
   );
 }
+
+
+
