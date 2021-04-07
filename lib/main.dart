@@ -12,6 +12,7 @@ void main() {
   return runApp(AppLock(
       builder: (args) => MaterialApp(
           initialRoute: '/',
+          debugShowCheckedModeBanner: false,
           routes: {
             // When navigating to the "/" route, build the HomeScreen Widget
             '/': (context) => HomescreenList(),

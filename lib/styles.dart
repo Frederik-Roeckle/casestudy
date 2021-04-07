@@ -7,8 +7,8 @@ class Styles {
   static final Color _textColorDefault = _hexToColor('FFFFFF');
   static final String _fontNameDefault = 'Bahnschrift';
 
-  static final Color tileColor = Color(0xff64B6AC);
-  static final Color appBarColor = Color(0xff0C1B33);
+  static final Color TILE_COLOR = Color(0xff64B6AC);
+  static final Color APP_BAR_COLOR = Color(0xff0C1B33);
   static final Color STRONG_GREEN = Color(0xFF00B050);
   static final Color LIGHT_GREEN = Color(0xFF00CC5C);
   static final Color WHITE = Color(0xFFFCFCFF);
@@ -16,14 +16,14 @@ class Styles {
   static final Color STRONG_GREY = Color(0xFF7C7C7C);
 
 
-  static final navBarTitle = TextStyle(fontFamily: _fontNameDefault);
+  static final NAV_BAR_TITLE = TextStyle(fontFamily: _fontNameDefault);
 
-  static final headerLarge = TextStyle(
+  static final HEADER_LARGE = TextStyle(
     fontFamily: _fontNameDefault,
     fontSize: _textSizeLarge,
     color: _textColorStrong,
   );
-  static final textDefault = TextStyle(
+  static final TEXT_DEFAULT = TextStyle(
     fontFamily: _fontNameDefault,
     fontSize: _textSizeDefault,
     color: _textColorDefault,

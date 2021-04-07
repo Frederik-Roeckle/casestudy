@@ -6,8 +6,8 @@ class HomescreenList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Übersicht", style: Styles.headerLarge),
-          backgroundColor: Styles.appBarColor,
+          title: Text("Übersicht", style: Styles.HEADER_LARGE),
+          backgroundColor: Styles.APP_BAR_COLOR,
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,11 +26,11 @@ class HomescreenList extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(30.0),
           decoration: BoxDecoration(
-              color: Styles.tileColor,
+              color: Styles.TILE_COLOR,
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: new FlatButton(
               onPressed: () => Navigator.pushNamed(context, route),
-              child: new Text(funktion, style: Styles.textDefault)),
+              child: new Text(funktion, style: Styles.TEXT_DEFAULT)),
         ));
   }
 }

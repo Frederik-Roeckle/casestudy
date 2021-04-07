@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_casestudy/DailyReminder/DailyReminder.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodDatabase.dart';
@@ -146,6 +147,7 @@ class _MoodPollView extends StatelessWidget{
             Schmerzabfrage(context),
             SchmerzabfrageStelle(context),
             Abschlussbutton(context),
+            DailyReminder(),
           ],
         ),
       ),
@@ -172,7 +174,7 @@ class _MoodPollView extends StatelessWidget{
               child: Center(
                 child: Text(
                     "Wie geht es Dir heute?",
-                    style: Styles.textDefault
+                    style: Styles.TEXT_DEFAULT
                 ),
               ),
             ),
@@ -215,7 +217,7 @@ class _MoodPollView extends StatelessWidget{
               child: Center(
                 child: Text(
                   "Hast du Schmerzen?",
-                  style: Styles.textDefault,
+                  style: Styles.TEXT_DEFAULT,
                 ),
               ),
             ),
@@ -272,7 +274,7 @@ class _MoodPollView extends StatelessWidget{
                 child: Center(
                   child: Text(
                     "Wenn ja an welchen Stellen?",
-                    style: Styles.textDefault,
+                    style: Styles.TEXT_DEFAULT,
                   ),
                 ),
               ),
@@ -316,7 +318,7 @@ class _MoodPollView extends StatelessWidget{
               child: Center(
                 child: Text(
                   "In welcher psychischen Verfassung bist du heute?",
-                  style: Styles.textDefault,
+                  style: Styles.TEXT_DEFAULT,
                 ),
               ),
             ),

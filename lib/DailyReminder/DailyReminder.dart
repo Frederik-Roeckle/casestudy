@@ -18,14 +18,24 @@ class _DailyReminderState extends State<DailyReminder> {
     var iosInitalize = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(android: androidInitalize, iOS: iosInitalize);
     localNotification = new FlutterLocalNotificationsPlugin();
-    localNotification.initialize(initializationSettings);
+    localNotification.initialize(initializationSettings, onSelectNotification: _notificationSelected);
   }
 
   Future _showNotification() async {
-    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "Blaubären essen Blaubeeren", importance: Importance.high);
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "Blaubären essen Blaubeeren", importance: Importance.max, priority: Priority.high, fullScreenIntent: true);
     var iosDetails = new IOSNotificationDetails();
     var generateNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
-    await localNotification.show(0, "Blau", "Esse esse", generateNotificationDetails);
+    //await localNotification.periodicallyShow(0, "Hallo", "Baum", RepeatInterval.everyMinute, generateNotificationDetails);
+    await localNotification.show(0, "Blau", "Esse esse", generateNotificationDetails, payload: "Baumhaus");
+  }
+
+  Future _notificationSelected(String payload) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text("Notification : $payload"),
+      ),
+    );
   }
 
   @override

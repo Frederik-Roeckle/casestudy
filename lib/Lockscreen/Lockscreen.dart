@@ -101,7 +101,7 @@ class _LockscreenView extends StatelessWidget {
                 child: RaisedButton(
                   child: Text(
                     "Log In",
-                    style: Styles.textDefault,
+                    style: Styles.TEXT_DEFAULT,
                   ),
                   color: Styles.LIGHT_GREEN,
                   onPressed: () {
