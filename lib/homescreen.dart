@@ -1,3 +1,4 @@
+import 'package:flutter_app_casestudy/screens/home/settings_form.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
 import 'styles.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,20 @@ class HomescreenList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showSettingPanel() {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.75,
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+            child: SettingsForm(),
+          );
+        },
+        isScrollControlled: true,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Übersicht", style: Styles.headerLarge),
@@ -19,6 +34,11 @@ class HomescreenList extends StatelessWidget {
               await _auth.signOut();
             },
           ),
+          TextButton.icon(
+            icon: Icon(Icons.settings),
+            label: Text('settings'),
+            onPressed: () => _showSettingPanel(),
+          )
         ],
       ),
       body: Column(
