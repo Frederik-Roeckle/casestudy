@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
+import 'package:flutter_app_casestudy/MoodPoll/StimmungStartSeite.dart';
 import 'package:flutter_app_casestudy/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
 import 'Tagebuch/Tagebuch.dart';
+import 'MoodStatistic/MoodStatistic.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,8 +43,10 @@ class MyApp extends StatelessWidget {
           '/Tagebuch': (context) => Tagebuch(),
           '/MoodPoll': (context) => MoodPoll(),
           '/NeuerEintrag': (context) => NeuerEintrag(),
-          '/Tagebucheintraege': (context) => Tagebucheintraege(),
-          '/EintragBearbeiten': (context) => EintragBearbeiten(),
+              '/Tagebucheintraege': (context) => Tagebucheintraege(),
+              '/EintragBearbeiten': (context) => EintragBearbeiten(),
+              '/Stimmung-Statistik': (context) => MoodStatistic(),
+              '/Stimmung': (context) => StimmungStartSeite(),
 
         }),
         lockScreen: Lockscreen(),
