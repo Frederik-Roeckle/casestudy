@@ -87,6 +87,7 @@ class _MoodPollController extends State<MoodPoll> {
     await moodDatabase.insertElement(moodEntry);
     List<MoodEntry> dbList = await moodDatabase.retrieveElements();
     debugPrint(dbList.last.moodInPoints.toString());
+    Navigator.pop(this.context);
   }
 
   void setAbschlussButtonVisibilityDependingOnUserInput() {
