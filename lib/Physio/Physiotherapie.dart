@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_casestudy/physiotherapie2.dart';
+import 'package:flutter_app_casestudy/Physio/physiotherapie2.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 
 class Physiotherapie extends StatelessWidget {
