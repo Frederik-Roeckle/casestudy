@@ -4,7 +4,7 @@ class MoodEntry {
   // Primary Key in ISO 8601 Format
   final String dateTime;
 
-  //Mood auf 0-100 in 20er Schritten
+  //Mood auf -50 - +50 in 20er Schritten
   final double moodInPoints;
 
   //Schmerzen vorhanden, eig bool aber not supported by sqlite instead 0 = false, 1 = true

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodDatabase.dart';
@@ -63,10 +65,23 @@ class _MoodPollController extends State<MoodPoll> {
     });
   }
 
+
+  //Testing
+  int i = 0;
+
   void buttonAbschlussHandler() async {
-    //TODO Speichern der Infos in der DB
     MoodDatabase moodDatabase = new MoodDatabase();
     String currentDate = DateTime.now().toIso8601String();
+    /*
+    For Testing
+     */
+    Random r = new Random();
+    //currentDate = DateTime.utc(r.nextInt(2050), r.nextInt(12), r.nextInt(9)).toIso8601String();
+    currentDate = DateTime.utc(2020, 12, i).toIso8601String();
+    i++;
+    /*
+    End Testing
+     */
     MoodEntry moodEntry = MoodEntry(
       dateTime: currentDate,
       moodInPoints: sliderValue,
