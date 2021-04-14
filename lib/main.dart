@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
 import 'package:flutter_app_casestudy/Physiotherapie.dart';
+import 'package:flutter_app_casestudy/homescreen.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
 import 'package:flutter_app_casestudy/wrapper.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/" route, build the FirstScreen widget.
           // '/': (context) => HomescreenList(),
           // When navigating to the "/second" route, build the SecondScreen widget.
+          '/homescreen': (context) => HomescreenList(),
           '/Kalender': (context) => Kalender(),
           '/Physiotherapie': (context) => Physiotherapie(),
           '/Tagebuch': (context) => Tagebuch(),
