@@ -35,7 +35,8 @@ class Physiotherapie extends StatelessWidget {
                   color: Styles.STRONG_GREEN,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: new TextButton(
-                //onPressed: () => Navigator.pushNamed(context),
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/PhysiotherapieAtem'),
                 child: new Text("Atemübungen", style: Styles.textDefault),
               ),
             ),

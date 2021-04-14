@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
 import 'package:flutter_app_casestudy/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
+import 'package:flutter_app_casestudy/physio_atem.dart';
 import 'package:flutter_app_casestudy/physiotherapie2.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
 import 'package:flutter_app_casestudy/wrapper.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           '/Tagebucheintraege': (context) => Tagebucheintraege(),
           '/EintragBearbeiten': (context) => EintragBearbeiten(),
           '/PhysiotherapieKraft': (context) => PhysiotherapieKraft(),
+          '/PhysiotherapieAtem': (context) => PhysiotherapieAtem(),
         }),
         lockScreen: Lockscreen(),
       ),
