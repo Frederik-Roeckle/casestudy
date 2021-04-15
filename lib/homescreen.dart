@@ -13,8 +13,11 @@ class HomescreenList extends StatelessWidget {
         backgroundColor: Styles.STRONG_GREEN,
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('logout'),
+            icon: Icon(
+              Icons.person,
+              color: Styles.WHITE,
+            ),
+            label: Text('logout', style: Styles.textDefault),
             onPressed: () async {
               await _auth.signOut();
             },
