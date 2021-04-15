@@ -106,7 +106,7 @@ class Datenbank {
     await db.insert(
       'appoints',
       app.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.fail,
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
