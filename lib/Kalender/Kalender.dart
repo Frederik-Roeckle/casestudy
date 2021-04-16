@@ -29,34 +29,12 @@ class _Kalender extends State<Kalender> {
 
   @override
   Widget build(BuildContext context) {
-    _loadEntries();
-    bool view = false;
-
     var view2 = CalendarView.week;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Kalender'),
         backgroundColor: Styles.STRONG_GREEN,
-        actions: <Widget>[
-          TextButton.icon(
-              icon: Icon(
-                Icons.calendar_today,
-                color: Styles.WHITE,
-              ),
-              label: Text(''),
-              onPressed: () {
-                if (view == true) {
-                  view = false;
-                  view2 = CalendarView.week;
-                  debugPrint('view $view');
-                } else {
-                  view = true;
-                  view2 = CalendarView.month;
-                  debugPrint('view $view');
-                }
-              }),
-        ],
       ),
       body: FutureBuilder(
         future: _loadEntries(),
@@ -236,150 +214,142 @@ class _Kalender extends State<Kalender> {
       _view = true;
       Appointment appointment = calendarTapDetails.appointments[0];
       textFieldController.text = appointment.subject;
-      debugPrint('$appointment');
+
       return await showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              content: Stack(
-                clipBehavior: Clip.none,
-                children: <Widget>[
-                  Positioned(
-                    right: -40.0,
-                    top: -40.0,
-                    child: InkResponse(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: CircleAvatar(
-                        child: Icon(
-                          Icons.close,
-                          color: Styles.WHITE,
-                        ),
-                        backgroundColor: Styles.LIGHT_GREEN,
+              content: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(7.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(labelText: 'Titel'),
+                              controller: textFieldController,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(7.0),
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Styles.LIGHT_GREEN)),
+                                child: Text('Tag auswählen'),
+                                onPressed: () async => _date =
+                                    await showDatePicker(
+                                        context: context,
+                                        initialDate: appointment.startTime,
+                                        firstDate: DateTime(2001),
+                                        lastDate: DateTime(2222))
+                                //_calendarController.selectedDate
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(7.0),
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Styles.LIGHT_GREEN)),
+                                child: Text('Startzeit auswählen'),
+                                onPressed: () async =>
+                                    start = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.fromDateTime(
+                                          appointment
+                                              .startTime), //_calendarController.selectedDate
+                                    )),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(7.0),
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Styles.LIGHT_GREEN)),
+                                child: Text('Endzeit auswählen'),
+                                onPressed: () async =>
+                                    end = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.fromDateTime(
+                                          appointment
+                                              .startTime), //_calendarController.selectedDate
+                                    )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(7.0),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Styles.LIGHT_GREEN)),
+                              child: Text(
+                                "Submit",
+                                overflow: TextOverflow.clip,
+                              ),
+                              onPressed: () {
+                                String text;
+                                if (textFieldController.text == null) {
+                                  text = appointment.subject;
+                                } else {
+                                  text = textFieldController.text;
+                                }
+                                if (start == null) {
+                                  start = TimeOfDay.fromDateTime(
+                                      appointment.startTime);
+                                }
+
+                                if (end == null) {
+                                  end = TimeOfDay.fromDateTime(
+                                      appointment.endTime);
+                                }
+                                if (_date == null) {
+                                  _date = appointment.startTime;
+                                }
+
+                                DateTime __start = new DateTime(
+                                    _date.year,
+                                    _date.month,
+                                    _date.day,
+                                    start.hour,
+                                    start.minute);
+                                DateTime __end = new DateTime(
+                                    _date.year,
+                                    _date.month,
+                                    _date.day,
+                                    end.hour,
+                                    end.minute);
+                                db.updateAppoint(
+                                    appointment.notes,
+                                    text,
+                                    __start.toIso8601String(),
+                                    __end.toIso8601String());
+                                setState(() {});
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.red)),
+                              child: Text("Delete"),
+                              onPressed: () {
+                                db.deleteAppoint(appointment.notes);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(labelText: 'Titel'),
-                            controller: textFieldController,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Styles.LIGHT_GREEN)),
-                              child: Text('Tag auswählen'),
-                              onPressed: () async => _date =
-                                  await showDatePicker(
-                                      context: context,
-                                      initialDate: appointment.startTime,
-                                      firstDate: DateTime(2001),
-                                      lastDate: DateTime(2222))
-                              //_calendarController.selectedDate
-                              ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Styles.LIGHT_GREEN)),
-                              child: Text('Startzeit auswählen'),
-                              onPressed: () async =>
-                                  start = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.fromDateTime(appointment
-                                        .startTime), //_calendarController.selectedDate
-                                  )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Styles.LIGHT_GREEN)),
-                              child: Text('Endzeit auswählen'),
-                              onPressed: () async => end = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.fromDateTime(appointment
-                                        .startTime), //_calendarController.selectedDate
-                                  )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Styles.LIGHT_GREEN)),
-                            child: Text(
-                              "Submit",
-                              overflow: TextOverflow.clip,
-                            ),
-                            onPressed: () {
-                              String text;
-                              if (textFieldController.text == null) {
-                                text = appointment.subject;
-                              } else {
-                                text = textFieldController.text;
-                              }
-                              if (start == null) {
-                                start = TimeOfDay.fromDateTime(
-                                    appointment.startTime);
-                              }
-
-                              if (end == null) {
-                                end =
-                                    TimeOfDay.fromDateTime(appointment.endTime);
-                              }
-                              if (_date == null) {
-                                _date = appointment.startTime;
-                              }
-
-                              DateTime __start = new DateTime(
-                                  _date.year,
-                                  _date.month,
-                                  _date.day,
-                                  start.hour,
-                                  start.minute);
-                              DateTime __end = new DateTime(_date.year,
-                                  _date.month, _date.day, end.hour, end.minute);
-                              db.updateAppoint(
-                                  appointment.notes,
-                                  text,
-                                  __start.toIso8601String(),
-                                  __end.toIso8601String());
-                              setState(() {});
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.red)),
-                            child: Text("Delete"),
-                            onPressed: () {
-                              db.deleteAppoint(appointment.notes);
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           });
