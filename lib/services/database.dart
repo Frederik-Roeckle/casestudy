@@ -12,25 +12,24 @@ class DatabaseService {
 // Wann ist <void> notwendig?
   Future updateUserData(
       String name, String email, String phone, String doctor) async {
-    return await userCollection.doc(uid).set({
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'doctor': doctor,
-    });
+    return await userCollection.doc(uid).set(
+      {
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'doctor': doctor,
+      },
+    );
   }
 
 // brew list from snapshot
 
   List<Userr> _userListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return Userr(
-          //  name: doc.data()['name'] ?? '',
-          //  email: doc.data()['strength'] ?? '',
-          //  phone: doc.data()['sugars'] ?? 0,
-          //  doctor: doc.data()['sugars'] ?? 0,
-          );
-    }).toList();
+    return snapshot.docs.map(
+      (doc) {
+        return Userr();
+      },
+    ).toList();
   }
 
 // userData from snapshot

@@ -28,10 +28,10 @@ class _RegisterState extends State<Register> {
         : Scaffold(
             backgroundColor: Styles.STRONG_GREEN,
             appBar: AppBar(
-              leading: Icon(Icons.accessible_forward_rounded),
               backgroundColor: Styles.appBarColor,
               elevation: 0.0,
-              title: Text('Sign up to ...', style: Styles.headerLarge),
+              title:
+                  Text('Sign up to Static Health', style: Styles.headerLarge),
               actions: <Widget>[
                 TextButton.icon(
                   icon: Icon(Icons.person),

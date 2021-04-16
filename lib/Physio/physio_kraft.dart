@@ -39,7 +39,7 @@ class _ListPageState extends State<ListPage> {
   Future getPhysio() async {
     var firestore = FirebaseFirestore.instance;
 
-    QuerySnapshot qn = await firestore.collection('physio').get();
+    QuerySnapshot qn = await firestore.collection('physioKraft').get();
 
     return qn.docs;
   }
@@ -95,13 +95,24 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
           title: Text(widget.post["titel"], style: Styles.headerLarge),
           backgroundColor: Styles.appBarColor),
-      body: Container(
-        child: Card(
-          child: ListTile(
-            title: Text(widget.post["titel"]),
-            subtitle: Text(widget.post["ausfuehrung"]),
+      body: Column(
+        children: [
+          Container(
+            child: Text(widget.post["ausfuehrung"]),
+            padding: EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 15.0),
           ),
-        ),
+          Container(
+            child: Text(widget.post["ausgangsposition"]),
+            padding: EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 15.0),
+          ),
+        ],
+
+        // child: Card(
+        //   child: ListTile(
+        //     title: Text(widget.post["titel"]),
+        //     subtitle: Text(widget.post["ausfuehrung"]),
+        //   ),
+        // ),
       ),
     );
   }
