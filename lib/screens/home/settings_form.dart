@@ -29,14 +29,14 @@ class _SettingsFormState extends State<SettingsForm> {
             key: _formKey,
             child: Column(children: <Widget>[
               Text(
-                'Update your settings.',
+                'Ihre Einstellungen',
                 style: TextStyle(fontSize: 18.0),
               ),
               SizedBox(height: 20.0),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Name",
+                  "Name:",
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -51,7 +51,7 @@ class _SettingsFormState extends State<SettingsForm> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "E-Mail",
+                  "E-Mail:",
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -67,7 +67,7 @@ class _SettingsFormState extends State<SettingsForm> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Mobilnummer",
+                  "Mobilnummer:",
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -84,7 +84,7 @@ class _SettingsFormState extends State<SettingsForm> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Ihre Praxis",
+                  "Ihre Praxis:",
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -94,6 +94,19 @@ class _SettingsFormState extends State<SettingsForm> {
                     .copyWith(hintText: "Ihre Praxis"),
                 validator: (val) => val.isEmpty ? 'Please enter a name' : null,
                 onChanged: (val) => setState(() => _currentDoctor = val),
+              ),
+              SizedBox(height: 20.0),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Ihr Passwort",
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              TextFormField(
+                decoration:
+                    Styles.textInputDecoration.copyWith(hintText: "Passcode"),
+                obscureText: true,
               ),
               SizedBox(height: 10.0),
               ElevatedButton(

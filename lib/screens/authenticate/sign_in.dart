@@ -30,8 +30,7 @@ class _SignInState extends State<SignIn> {
             appBar: AppBar(
               backgroundColor: Styles.appBarColor,
               elevation: 0.0,
-              title:
-                  Text('Sign in to Static Health', style: Styles.headerLarge),
+              title: Text('Sign In', style: Styles.headerLarge),
               actions: <Widget>[
                 TextButton.icon(
                   icon: Icon(Icons.person),

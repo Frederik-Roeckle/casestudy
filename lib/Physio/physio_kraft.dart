@@ -22,7 +22,7 @@ class _PhysiotherapieKraftState extends State<PhysiotherapieKraft> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Physiotherapie", style: Styles.headerLarge),
+        title: Text("Kraftübungen", style: Styles.headerLarge),
         backgroundColor: Styles.appBarColor,
       ),
       body: ListPage(),
@@ -97,22 +97,31 @@ class _DetailPageState extends State<DetailPage> {
           backgroundColor: Styles.appBarColor),
       body: Column(
         children: [
+          SizedBox(height: 20.0),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Ausführung:",
+              textAlign: TextAlign.left,
+            ),
+          ),
           Container(
             child: Text(widget.post["ausfuehrung"]),
             padding: EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 15.0),
+          ),
+          SizedBox(height: 20.0),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Ausgangsposition:",
+              textAlign: TextAlign.left,
+            ),
           ),
           Container(
             child: Text(widget.post["ausgangsposition"]),
             padding: EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 15.0),
           ),
         ],
-
-        // child: Card(
-        //   child: ListTile(
-        //     title: Text(widget.post["titel"]),
-        //     subtitle: Text(widget.post["ausfuehrung"]),
-        //   ),
-        // ),
       ),
     );
   }

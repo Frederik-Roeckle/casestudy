@@ -13,7 +13,7 @@ class HomescreenList extends StatelessWidget {
         context: context,
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * 0.75,
+            height: MediaQuery.of(context).size.height * 0.85,
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
             child: SettingsForm(),
           );

@@ -22,7 +22,7 @@ class _PhysiotherapieAtemState extends State<PhysiotherapieAtem> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Physiotherapie", style: Styles.headerLarge),
+        title: Text("Atemübungen", style: Styles.headerLarge),
         backgroundColor: Styles.appBarColor,
       ),
       body: ListPageAtem(),
@@ -97,6 +97,14 @@ class _DetailPageAtemState extends State<DetailPageAtem> {
           backgroundColor: Styles.appBarColor),
       body: Column(
         children: [
+          SizedBox(height: 20.0),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Ablauf:",
+              textAlign: TextAlign.left,
+            ),
+          ),
           Container(
             child: Text(widget.post["ablauf"]),
             padding: EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 15.0),

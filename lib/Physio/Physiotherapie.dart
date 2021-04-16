@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_casestudy/Physio/physio_kraft.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 
 class Physiotherapie extends StatelessWidget {
@@ -7,7 +6,7 @@ class Physiotherapie extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Übersicht", style: Styles.headerLarge),
+        title: Text("Physiotherapie", style: Styles.headerLarge),
         backgroundColor: Styles.appBarColor,
       ),
       body: Column(

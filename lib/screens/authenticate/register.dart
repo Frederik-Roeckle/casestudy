@@ -30,8 +30,7 @@ class _RegisterState extends State<Register> {
             appBar: AppBar(
               backgroundColor: Styles.appBarColor,
               elevation: 0.0,
-              title:
-                  Text('Sign up to Static Health', style: Styles.headerLarge),
+              title: Text('Sign Up', style: Styles.headerLarge),
               actions: <Widget>[
                 TextButton.icon(
                   icon: Icon(Icons.person),
