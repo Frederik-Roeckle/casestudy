@@ -74,7 +74,9 @@ class _Kalender extends State<Kalender> {
 
   Future<void> _newEvent(BuildContext context) async {
     await _showNewEvent(context);
-    Navigator.popAndPushNamed(context, '/Kalender');
+    if (_view == true) {
+      Navigator.popAndPushNamed(context, '/Kalender');
+    }
   }
 
   Future<void> _showNewEvent(BuildContext context) {
@@ -82,74 +84,59 @@ class _Kalender extends State<Kalender> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            content: Stack(
-              clipBehavior: Clip.hardEdge,
-              children: <Widget>[
-                Positioned(
-                  right: -40.0,
-                  top: -40.0,
-                  child: InkResponse(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.close,
-                        color: Styles.WHITE,
-                      ),
-                      backgroundColor: Styles.LIGHT_GREEN,
+            content: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(labelText: 'Titel'),
+                            controller: textFieldController,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Styles.LIGHT_GREEN)),
+                              child: Text('Startzeit auswählen'),
+                              onPressed: () => _choosingStartTime(true)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Styles.LIGHT_GREEN)),
+                              child: Text('Endzeit auswählen'),
+                              onPressed: () => _choosingStartTime(false)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Styles.LIGHT_GREEN)),
+                            child: Text("Submit"),
+                            onPressed: () {
+                              _addEvent();
+                              //setState(() {});
+                              _view = true;
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(labelText: 'Titel'),
-                          controller: textFieldController,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Styles.LIGHT_GREEN)),
-                            child: Text('Startzeit auswählen'),
-                            onPressed: () => _choosingStartTime(true)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Styles.LIGHT_GREEN)),
-                            child: Text('Endzeit auswählen'),
-                            onPressed: () => _choosingStartTime(false)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Styles.LIGHT_GREEN)),
-                          child: Text("Submit"),
-                          onPressed: () {
-                            _addEvent();
-                            //setState(() {});
-
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });

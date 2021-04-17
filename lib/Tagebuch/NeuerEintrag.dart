@@ -75,6 +75,9 @@ class _NeuerEintrag extends State<NeuerEintrag> {
 
   Future<Widget> _newEntry(DateTime date, String text) async {
     bool suc = false;
+    if (date == null) {
+      date = DateTime.now();
+    }
     String _date = date.toIso8601String();
     debugPrint('DateTime: $_dateTime');
 
