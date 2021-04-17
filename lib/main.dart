@@ -32,9 +32,10 @@ void main() {
   );
 }
 
+//Callback Funktion die vom Workmanager aufgerufen wird
 void callbackDispatcher() {
   Workmanager.executeTask((task, inputData) {
-    print("Native called background task at ${DateTime.now().toString()}");
+    //print("Native called background task at ${DateTime.now().toString()}");     //Eine Art von PushDebugNotification
     if(task == "stimmungsabfrage") {
       debugPrint("Workmanager fuehrt Stimmungsabfrage Callback aus");
       LocalNotification localNotification = new LocalNotification();
@@ -44,13 +45,13 @@ void callbackDispatcher() {
   });
 }
 
+
+//Initialisierung des Workermanagers
 void initWorkManager() {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager.initialize(callbackDispatcher, isInDebugMode: true);
   debugPrint("Workmanager initalized");
-  //LocalNotification localNotification = new LocalNotification();
-  //localNotification.showNotification("Initialisierung", "initWorkManager");
-  Workmanager.registerPeriodicTask("Stimmungsabfrage", "stimmungsabfrage");
+  Workmanager.registerPeriodicTask("Stimmungsabfrage", "stimmungsabfrage");       //Eine periodische Task wird alle 15 min ausgefuehrt
 }
 
 
