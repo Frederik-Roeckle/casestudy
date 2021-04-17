@@ -2,9 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
-import 'package:flutter_app_casestudy/Physiotherapie.dart';
+import 'package:flutter_app_casestudy/Physio/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/homescreen.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
+import 'package:flutter_app_casestudy/Physio/physio_atem.dart';
+import 'package:flutter_app_casestudy/Physio/physio_kraft.dart';
 import 'package:flutter_app_casestudy/services/auth.dart';
 import 'package:flutter_app_casestudy/wrapper.dart';
 import 'package:flutter_app_lock/flutter_app_lock.dart';
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
           '/NeuerEintrag': (context) => NeuerEintrag(),
           '/Tagebucheintraege': (context) => Tagebucheintraege(),
           '/EintragBearbeiten': (context) => EintragBearbeiten(),
+          '/PhysiotherapieKraft': (context) => PhysiotherapieKraft(),
+          '/PhysiotherapieAtem': (context) => PhysiotherapieAtem(),
         }),
         lockScreen: Lockscreen(),
       ),
