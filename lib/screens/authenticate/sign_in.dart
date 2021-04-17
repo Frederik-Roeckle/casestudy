@@ -28,13 +28,16 @@ class _SignInState extends State<SignIn> {
         : Scaffold(
             backgroundColor: Styles.STRONG_GREEN,
             appBar: AppBar(
-              backgroundColor: Styles.appBarColor,
+              backgroundColor: Styles.STRONG_GREEN,
               elevation: 0.0,
               title: Text('Sign In', style: Styles.headerLarge),
               actions: <Widget>[
                 TextButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('Register'),
+                  icon: Icon(
+                    Icons.person,
+                    color: Styles.WHITE,
+                  ),
+                  label: Text('Register', style: Styles.textDefault),
                   onPressed: () => widget.toggleView(),
                 ),
               ],

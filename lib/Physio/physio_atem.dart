@@ -23,7 +23,7 @@ class _PhysiotherapieAtemState extends State<PhysiotherapieAtem> {
     return new Scaffold(
       appBar: AppBar(
         title: Text("Atemübungen", style: Styles.headerLarge),
-        backgroundColor: Styles.appBarColor,
+        backgroundColor: Styles.STRONG_GREEN,
       ),
       body: ListPageAtem(),
     );
@@ -94,7 +94,7 @@ class _DetailPageAtemState extends State<DetailPageAtem> {
     return Scaffold(
       appBar: AppBar(
           title: Text(widget.post["titel"], style: Styles.headerLarge),
-          backgroundColor: Styles.appBarColor),
+          backgroundColor: Styles.STRONG_GREEN),
       body: Column(
         children: [
           SizedBox(height: 20.0),

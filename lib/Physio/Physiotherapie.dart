@@ -7,7 +7,7 @@ class Physiotherapie extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Physiotherapie", style: Styles.headerLarge),
-        backgroundColor: Styles.appBarColor,
+        backgroundColor: Styles.STRONG_GREEN,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -23,7 +23,7 @@ class _PhysiotherapieKraftState extends State<PhysiotherapieKraft> {
     return new Scaffold(
       appBar: AppBar(
         title: Text("Kraftübungen", style: Styles.headerLarge),
-        backgroundColor: Styles.appBarColor,
+        backgroundColor: Styles.STRONG_GREEN,
       ),
       body: ListPage(),
     );
@@ -94,7 +94,7 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
       appBar: AppBar(
           title: Text(widget.post["titel"], style: Styles.headerLarge),
-          backgroundColor: Styles.appBarColor),
+          backgroundColor: Styles.STRONG_GREEN),
       body: Column(
         children: [
           SizedBox(height: 20.0),

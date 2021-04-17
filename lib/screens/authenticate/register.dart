@@ -28,13 +28,16 @@ class _RegisterState extends State<Register> {
         : Scaffold(
             backgroundColor: Styles.STRONG_GREEN,
             appBar: AppBar(
-              backgroundColor: Styles.appBarColor,
+              backgroundColor: Styles.STRONG_GREEN,
               elevation: 0.0,
               title: Text('Sign Up', style: Styles.headerLarge),
               actions: <Widget>[
                 TextButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('Sign In'),
+                  icon: Icon(
+                    Icons.person,
+                    color: Styles.WHITE,
+                  ),
+                  label: Text('Sign In', style: Styles.textDefault),
                   onPressed: () => widget.toggleView(),
                 ),
               ],
