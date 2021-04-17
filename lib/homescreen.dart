@@ -25,18 +25,18 @@ class HomescreenList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Übersicht", style: Styles.headerLarge),
-        backgroundColor: Styles.appBarColor,
+        backgroundColor: Styles.STRONG_GREEN,
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('logout'),
+            icon: Icon(Icons.person, color: Styles.WHITE),
+            label: Text('logout', style: Styles.textDefault),
             onPressed: () async {
               await _auth.signOut();
             },
           ),
           TextButton.icon(
-            icon: Icon(Icons.settings),
-            label: Text('settings'),
+            icon: Icon(Icons.settings, color: Styles.WHITE),
+            label: Text('settings', style: Styles.textDefault),
             onPressed: () => _showSettingPanel(),
           )
         ],
