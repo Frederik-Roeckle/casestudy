@@ -8,6 +8,8 @@ class NeuerEintrag extends StatefulWidget {
 }
 
 class _NeuerEintrag extends State<NeuerEintrag> {
+  bool _view = false;
+
   DateTime _dateTime;
   String _choosingDate = 'Wähle ein Datum aus!';
 
@@ -23,14 +25,12 @@ class _NeuerEintrag extends State<NeuerEintrag> {
         title: Text("Neuer Eintrag", style: Styles.headerLarge),
         backgroundColor: Styles.appBarColor,
       ),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _datePicker(),
-            _textField(),
-            _submitEntry(),
-          ]),
+      body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+        _datePicker(),
+        _textField(),
+        _submitEntry(),
+      ]),
+
     );
   }
 
@@ -41,7 +41,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
             color: Styles.LIGHT_GREEN,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: new TextButton(
-          onPressed: () => _newEntry(_dateTime, textFieldController.text),
+          onPressed: () => _openNewEntry(_dateTime, textFieldController.text),
           child: Text(
             'Eintrag anlegen',
             style: Styles.textDefault,
@@ -68,8 +68,18 @@ class _NeuerEintrag extends State<NeuerEintrag> {
             }));
   }
 
+  Future<void> _openNewEntry(DateTime date, String text) async {
+    await _newEntry(date, text);
+    if (_view == true) {
+      Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
+    }
+  }
+
   Future<Widget> _newEntry(DateTime date, String text) async {
     bool suc = false;
+    if (date == null) {
+      date = DateTime.now();
+    }
     String _date = date.toIso8601String();
     debugPrint('DateTime: $_dateTime');
 
@@ -107,7 +117,8 @@ class _NeuerEintrag extends State<NeuerEintrag> {
       actions: <Widget>[
         new TextButton(
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
+            _view = true;
+            Navigator.of(context).pop();
           },
           child: Text('Close', style: TextStyle(color: Color(0xff000000))),
         ),

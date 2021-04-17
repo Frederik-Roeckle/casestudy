@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
 import 'package:flutter_app_casestudy/Physio/Physiotherapie.dart';
+import 'package:flutter_app_casestudy/homescreen.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/Physio/physio_atem.dart';
 import 'package:flutter_app_casestudy/Physio/physio_kraft.dart';
@@ -11,12 +12,12 @@ import 'package:flutter_app_casestudy/wrapper.dart';
 import 'package:flutter_app_lock/flutter_app_lock.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
-import 'Kalender.dart';
-import 'MoodPoll/MoodPoll.dart';
+import 'package:flutter_app_casestudy/Kalender/Kalender.dart';
+import 'package:flutter_app_casestudy/MoodPoll/MoodPoll.dart';
 import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
-import 'Tagebuch/Tagebuch.dart';
+import 'package:flutter_app_casestudy/Tagebuch/Tagebuch.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/" route, build the FirstScreen widget.
           // '/': (context) => HomescreenList(),
           // When navigating to the "/second" route, build the SecondScreen widget.
+          '/homescreen': (context) => HomescreenList(),
           '/Kalender': (context) => Kalender(),
           '/Physiotherapie': (context) => Physiotherapie(),
           '/Tagebuch': (context) => Tagebuch(),
@@ -53,17 +55,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// void main() {
-//   return runApp(MaterialApp(
-//     initialRoute: '/',
-//     routes: {
-//       // When navigating to the "/" route, build the FirstScreen widget.
-//       '/': (context) => HomescreenList(),
-//       // When navigating to the "/second" route, build the SecondScreen widget.
-//       '/Kalender': (context) => Kalender(),
-//       '/Physiotherapie': (context) => Physiotherapie(),
-//       '/Tagebuch': (context) => Tagebuch(),
-//       '/MoodPoll': (context) => MoodPoll(),
-//     },
-//   ));
-// }
