@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_casestudy/DailyReminder/DailyReminder.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_casestudy/MoodPoll/MoodDatabase.dart';
@@ -148,7 +147,6 @@ class _MoodPollView extends StatelessWidget{
             Schmerzabfrage(context),
             SchmerzabfrageStelle(context),
             Abschlussbutton(context),
-            DailyReminder(),
           ],
         ),
       ),
