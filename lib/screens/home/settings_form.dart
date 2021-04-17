@@ -140,25 +140,3 @@ class _SettingsFormState extends State<SettingsForm> {
     );
   }
 }
-//  final user = Provider.of<Userr>(context);
-//  return StreamBuilder<UserData>(
-//    stream: DatabaseService(uid: user.uid).userData,
-//    builder: (context, snapshot) {
-//         if (snapshot.hasData) {
-//           UserData userData = snapshot.data;
-//           return Form(
-//             key: _formKey,
-//             child: Column(
-//               children: <Widget>[
-//                 Text(
-//                   'Update your brew settings.',
-//                   style: TextStyle(fontSize: 18.0),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         };
-//     );
-//       }
-// }
-//}
