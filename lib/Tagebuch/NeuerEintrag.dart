@@ -9,6 +9,7 @@ class NeuerEintrag extends StatefulWidget {
 
 class _NeuerEintrag extends State<NeuerEintrag> {
   bool _view = false;
+
   DateTime _dateTime;
   String _choosingDate = 'Wähle ein Datum aus!';
 
@@ -29,6 +30,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
         _textField(),
         _submitEntry(),
       ]),
+
     );
   }
 

@@ -51,18 +51,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// void main() {
-//   return runApp(MaterialApp(
-//     initialRoute: '/',
-//     routes: {
-//       // When navigating to the "/" route, build the FirstScreen widget.
-//       '/': (context) => HomescreenList(),
-//       // When navigating to the "/second" route, build the SecondScreen widget.
-//       '/Kalender': (context) => Kalender(),
-//       '/Physiotherapie': (context) => Physiotherapie(),
-//       '/Tagebuch': (context) => Tagebuch(),
-//       '/MoodPoll': (context) => MoodPoll(),
-//     },
-//   ));
-// }
-
