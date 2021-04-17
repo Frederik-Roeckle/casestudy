@@ -27,16 +27,14 @@ class HomescreenList extends StatelessWidget {
         title: Text("Übersicht", style: Styles.headerLarge),
         backgroundColor: Styles.STRONG_GREEN,
         actions: <Widget>[
-          TextButton.icon(
+          IconButton(
             icon: Icon(Icons.person, color: Styles.WHITE),
-            label: Text('logout', style: Styles.textDefault),
             onPressed: () async {
               await _auth.signOut();
             },
           ),
-          TextButton.icon(
+          IconButton(
             icon: Icon(Icons.settings, color: Styles.WHITE),
-            label: Text('settings', style: Styles.textDefault),
             onPressed: () => _showSettingPanel(),
           )
         ],

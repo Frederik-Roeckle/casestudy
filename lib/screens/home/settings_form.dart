@@ -129,6 +129,12 @@ class _SettingsFormState extends State<SettingsForm> {
               ),
             ]),
           );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Datenbank nicht erreichbar!'),
+          );
+        } else {
+          return Center(child: CircularProgressIndicator());
         }
       },
     );
