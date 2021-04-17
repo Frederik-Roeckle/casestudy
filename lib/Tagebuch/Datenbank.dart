@@ -72,17 +72,17 @@ class Datenbank {
 
     Diary diary = Diary(date: date, entry: text);
     String _diary = diary.toString();
-    Map __diary = diary.toMap();
+
     debugPrint('diary: $_diary');
-    debugPrint('Map: $__diary');
+
     // Insert the Diary into the correct table. You might also specify the
     // `conflictAlgorithm` to use in case the same dog is inserted twice.
     //
     // In this case, replace any previous data.
     await db.insert(
       'diaries',
-      __diary,
-      conflictAlgorithm: ConflictAlgorithm.fail,
+      diary.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
