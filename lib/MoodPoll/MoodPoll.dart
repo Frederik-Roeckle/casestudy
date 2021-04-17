@@ -67,19 +67,19 @@ class _MoodPollController extends State<MoodPoll> {
 
 
   //Testing
-  int i = 0;
+  //int i = 0;
 
   void buttonAbschlussHandler() async {
     MoodDatabase moodDatabase = new MoodDatabase();
     String currentDate = DateTime.now().toIso8601String();
     /*
     For Testing
-     */
+
     Random r = new Random();
     //currentDate = DateTime.utc(r.nextInt(2050), r.nextInt(12), r.nextInt(9)).toIso8601String();
     currentDate = DateTime.utc(2020, 12, i).toIso8601String();
     i++;
-    /*
+
     End Testing
      */
     MoodEntry moodEntry = MoodEntry(
@@ -93,6 +93,7 @@ class _MoodPollController extends State<MoodPoll> {
     await moodDatabase.insertElement(moodEntry);
     List<MoodEntry> dbList = await moodDatabase.retrieveElements();
     debugPrint(dbList.last.moodInPoints.toString());
+    Navigator.pop(context);
   }
 
   void setAbschlussButtonVisibilityDependingOnUserInput() {

@@ -63,20 +63,26 @@ class _MoodStatisticView extends StatelessWidget {
                     )
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                Container(
+                  height: 70,
+                   child: ListView(
+                  //padding: EdgeInsets.all(0),
+                  //child: Row(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                  scrollDirection: Axis.horizontal,
                     children: [
 
                       //Darkred - 0 MoodPoints
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Center(
-                            child: Text('\u{1F62D}'),
+                            child: Text(
+                                '\u{1F62D}',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),),
                         ),
-                        width: 25,
-                        height: 25,
+                        width: 45,
+                        height: 45,
                         color: Color.fromRGBO(0xD3, 0x2F, 0x2F, 0x0F),
                       ),
 
@@ -84,10 +90,12 @@ class _MoodStatisticView extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Center(
-                          child: Text('\u{1F622}'),
+                          child: Text('\u{1F622}',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),),
                         ),
-                        width: 25,
-                        height: 25,
+                        width: 45,
+                        height: 45,
                         color: Color.fromRGBO(0xE6, 0x4A, 0x19, 0x0F),
                       ),
 
@@ -95,10 +103,12 @@ class _MoodStatisticView extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Center(
-                          child: Text('\u{1F610}'),
+                          child: Text('\u{1F610}',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),),
                         ),
-                        width: 25,
-                        height: 25,
+                        width: 45,
+                        height: 45,
                         color: Color.fromRGBO(0xFB, 0xC0, 0x2D, 0x0F),
                       ),
 
@@ -106,10 +116,12 @@ class _MoodStatisticView extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Center(
-                          child: Text('\u{1F642}'),
+                          child: Text('\u{1F642}',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),),
                         ),
-                        width: 25,
-                        height: 25,
+                        width: 45,
+                        height: 45,
                         color: Color.fromRGBO(0x38, 0x8E, 0x3C, 0x0F),
                       ),
 
@@ -117,10 +129,12 @@ class _MoodStatisticView extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Center(
-                          child: Text('\u{1F600}'),
+                          child: Text('\u{1F600}',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),),
                         ),
-                        width: 25,
-                        height: 25,
+                        width: 45,
+                        height: 45,
                         color: Color.fromRGBO(0x21, 0x96, 0xF3, 0x0F),
                       ),
 
@@ -128,10 +142,12 @@ class _MoodStatisticView extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Center(
-                          child: Text('\u{1F601}'),
+                          child: Text('\u{1F601}',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),),
                         ),
-                        width: 25,
-                        height: 25,
+                        width: 45,
+                        height: 45,
                         color: Color.fromRGBO(0x9C, 0x27, 0xB0, 0x0F),
                       ),
                     ],
