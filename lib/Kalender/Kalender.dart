@@ -1,12 +1,12 @@
-import 'styles.dart';
+import '../styles.dart';
 import 'package:flutter/material.dart';
 
-class Tagebuch extends StatelessWidget {
+class Kalender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Tagebuch", style: Styles.headerLarge),
+            title: Text("Kalender", style: Styles.headerLarge),
             backgroundColor: Styles.appBarColor),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
