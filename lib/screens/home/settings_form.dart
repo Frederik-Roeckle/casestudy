@@ -151,7 +151,7 @@ class _SettingsFormState extends State<SettingsForm> {
                             _currentDoctor ?? userData.doctor,
                           );
                         }
-                        if(_passcode.isNotEmpty) {
+                        if(_passcode != null) {
                           var passcodeService = PasscodeService();
                           await passcodeService.initPasscodeService();
                           passcodeService.setPasscode(_passcode);
