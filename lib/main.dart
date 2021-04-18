@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app_casestudy/Lockscreen/Lockscreen.dart';
+import 'package:flutter_app_casestudy/MoodPoll/StimmungStartSeite.dart';
 import 'package:flutter_app_casestudy/Physio/Physiotherapie.dart';
 import 'package:flutter_app_casestudy/homescreen.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_app_casestudy/MoodPoll/MoodPoll.dart';
 import 'package:flutter_app_casestudy/Tagebuch/NeuerEintrag.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
+import 'MoodStatistic/MoodStatistic.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebuch.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -80,6 +82,8 @@ class MyApp extends StatelessWidget {
           '/NeuerEintrag': (context) => NeuerEintrag(),
           '/Tagebucheintraege': (context) => Tagebucheintraege(),
           '/EintragBearbeiten': (context) => EintragBearbeiten(),
+          '/Stimmung-Statistik': (context) => MoodStatistic(),
+          '/Stimmung': (context) => StimmungStartSeite(),
           '/PhysiotherapieKraft': (context) => PhysiotherapieKraft(),
           '/PhysiotherapieAtem': (context) => PhysiotherapieAtem(),
         }),

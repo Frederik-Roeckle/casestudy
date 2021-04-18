@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_casestudy/Lockscreen/PasscodeService.dart';
 import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/services/database.dart';
 import 'package:flutter_app_casestudy/styles.dart';
@@ -18,6 +19,7 @@ class _SettingsFormState extends State<SettingsForm> {
   String _currentEmail;
   String _currentPhone;
   String _currentDoctor;
+  String _passcode;
   TimeOfDay _reminderTime;
 
   Widget build(BuildContext context) {
@@ -114,6 +116,7 @@ class _SettingsFormState extends State<SettingsForm> {
                       decoration: Styles.textInputDecoration
                           .copyWith(hintText: "Passcode"),
                       obscureText: true,
+                      onChanged: (val) => setState(() => _passcode = val),
                     ),
                     SizedBox(height: 10.0),
                     ElevatedButton(
@@ -147,8 +150,13 @@ class _SettingsFormState extends State<SettingsForm> {
                             _currentPhone ?? userData.phone,
                             _currentDoctor ?? userData.doctor,
                           );
-                          Navigator.pop(context);
                         }
+                        if(_passcode.isNotEmpty) {
+                          var passcodeService = PasscodeService();
+                          await passcodeService.initPasscodeService();
+                          passcodeService.setPasscode(_passcode);
+                        }
+                        Navigator.pop(context);
                       },
                     ),
                   ],
