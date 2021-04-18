@@ -41,12 +41,11 @@ void callbackDispatcher() {
       TimeOfDay remindTime = TimeOfDay(hour: inputData.values.first[0], minute: inputData.values.first[1]);
       double doubleRemindTime = remindTime.hour.toDouble() + (remindTime.minute.toDouble() / 60);
       double doubleNow = now.hour.toDouble() + (now.minute.toDouble() / 60);
-      double timeDiff = doubleNow - doubleRemindTime;
-      if(timeDiff.abs() < 0.25) {
+      double timeDiff = doubleRemindTime - doubleNow;
+      if(timeDiff < 0.25) {
         LocalNotification localNotification = new LocalNotification();
         localNotification.showNotification("Static Health", "Eine kleine Stimmungsabfrage");
       }
-
     }
     return Future.value(true);
   });

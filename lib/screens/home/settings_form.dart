@@ -136,6 +136,7 @@ class _SettingsFormState extends State<SettingsForm> {
                       ),
                       onPressed: () async {
                         if(_reminderTime != null) {
+                          Workmanager().cancelByUniqueName("Stimmungsabfrage");
                           Workmanager().registerPeriodicTask("Stimmungsabfrage", "stimmungsabfrage", inputData: <String, dynamic>{'array': [_reminderTime.hour, _reminderTime.minute]});
                         }
 
