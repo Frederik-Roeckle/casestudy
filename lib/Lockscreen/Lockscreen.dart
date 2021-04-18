@@ -29,7 +29,11 @@ class _LockscreenController extends State<Lockscreen> {
     var passcodeService = PasscodeService();
     await passcodeService.initPasscodeService();
     bool noPasscodeExists = await passcodeService.checkPasscodeWithString("");
+    /*
+    For Testing
     passcodeService.setPasscode("1234"); //Set Inital Password
+     */
+
     if (noPasscodeExists) {
       AppLock.of(context).didUnlock();
     }
