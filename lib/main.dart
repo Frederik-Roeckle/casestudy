@@ -20,11 +20,45 @@ import 'package:flutter_app_casestudy/Tagebuch/Tagebucheintraege.dart';
 import 'package:flutter_app_casestudy/Tagebuch/EintragBearbeiten.dart';
 import 'MoodStatistic/MoodStatistic.dart';
 import 'package:flutter_app_casestudy/Tagebuch/Tagebuch.dart';
+import 'package:workmanager/workmanager.dart';
+
+import 'Reminder/LocalNotification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  initWorkManager();
   runApp(MyApp());
+}
+
+//Callback Funktion die vom Workmanager aufgerufen wird
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) {
+    //print("Native called background task at ${DateTime.now().toString()}");     //Eine Art von PushDebugNotification
+    if(task == "stimmungsabfrage") {
+      debugPrint("Workmanager fuehrt Stimmungsabfrage Callback aus");
+      debugPrint(inputData.values.first[0].toString());
+
+      TimeOfDay now = TimeOfDay.now();
+      TimeOfDay remindTime = TimeOfDay(hour: inputData.values.first[0], minute: inputData.values.first[1]);
+      double doubleRemindTime = remindTime.hour.toDouble() + (remindTime.minute.toDouble() / 60);
+      double doubleNow = now.hour.toDouble() + (now.minute.toDouble() / 60);
+      double timeDiff = doubleRemindTime - doubleNow;
+      if(timeDiff < 0.25) {
+        LocalNotification localNotification = new LocalNotification();
+        localNotification.showNotification("Static Health", "Eine kleine Stimmungsabfrage");
+      }
+    }
+    return Future.value(true);
+  });
+}
+
+
+//Initialisierung des Workermanagers
+void initWorkManager() {
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  debugPrint("Workmanager initalized");
+  //Workmanager().registerPeriodicTask("Stimmungsabfrage", "stimmungsabfrage");       //Eine periodische Task wird alle 15 min ausgefuehrt
 }
 
 class MyApp extends StatelessWidget {
@@ -58,4 +92,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
