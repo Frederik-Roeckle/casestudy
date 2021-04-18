@@ -3,6 +3,7 @@ import 'package:flutter_app_casestudy/models/userr.dart';
 import 'package:flutter_app_casestudy/services/database.dart';
 import 'package:flutter_app_casestudy/styles.dart';
 import 'package:provider/provider.dart';
+import 'package:workmanager/workmanager.dart';
 
 class SettingsForm extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _SettingsFormState extends State<SettingsForm> {
   String _currentEmail;
   String _currentPhone;
   String _currentDoctor;
+  TimeOfDay _reminderTime;
 
   Widget build(BuildContext context) {
     final user = Provider.of<Userr>(context);
@@ -115,12 +117,28 @@ class _SettingsFormState extends State<SettingsForm> {
                     ),
                     SizedBox(height: 10.0),
                     ElevatedButton(
+                      child: Text(
+                      'Stimmungsabfrage Erinnerung',
+                      style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        _reminderTime = await showTimePicker(context: context, initialTime: new TimeOfDay(hour: 8, minute: 0));
+                      } ,),
+
+
+                    SizedBox(height: 10.0),
+                    SizedBox(height: 10.0),
+                    ElevatedButton(
                       //color: Colors.pink[400],
                       child: Text(
                         'Update',
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
+                        if(_reminderTime != null) {
+                          Workmanager().registerPeriodicTask("Stimmungsabfrage", "stimmungsabfrage", inputData: <String, dynamic>{'array': [_reminderTime.hour, _reminderTime.minute]});
+                        }
+
                         if (_formKey.currentState.validate()) {
                           await DatabaseService(uid: user.uid).updateUserData(
                             _currentName ?? userData.name,
