@@ -44,7 +44,7 @@ void callbackDispatcher() {
       double doubleRemindTime = remindTime.hour.toDouble() + (remindTime.minute.toDouble() / 60);
       double doubleNow = now.hour.toDouble() + (now.minute.toDouble() / 60);
       double timeDiff = doubleRemindTime - doubleNow;
-      if(timeDiff < 0.25) {
+      if(timeDiff < 0.25 && timeDiff > 0.0) {
         LocalNotification localNotification = new LocalNotification();
         localNotification.showNotification("Static Health", "Eine kleine Stimmungsabfrage");
       }
@@ -56,7 +56,7 @@ void callbackDispatcher() {
 
 //Initialisierung des Workermanagers
 void initWorkManager() {
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
   debugPrint("Workmanager initalized");
   //Workmanager().registerPeriodicTask("Stimmungsabfrage", "stimmungsabfrage");       //Eine periodische Task wird alle 15 min ausgefuehrt
 }
