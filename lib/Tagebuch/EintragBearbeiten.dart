@@ -13,6 +13,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
   String _newDate;
   String _choosingDate; //formatted String
   String _diaryText; //Textfield Inhalt
+  bool _view = false;
 
   final textFieldController = TextEditingController();
   final scrollController = ScrollController();
@@ -107,7 +108,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         );
   }
 
-  Future<Widget> _changeEntry(String date, String text) async {
+  Future<void> _changeEntry(String date, String text) async {
     bool suc = false;
 
     debugPrint('Date: $date');
@@ -118,43 +119,47 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
       await db.deleteDiary(date).whenComplete(() => suc = true);
     }
     if (suc == true) {
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) =>
-            _buildPopupDialog(context, "Erfolgreich gespeichert!"),
-      );
+      return await _buildPopupDialog(context, "Erfolgreich gespeichert!");
     } else {
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) =>
-            _buildPopupDialog(context, "Fehler!"),
-      );
+      return await _buildPopupDialog(context, "Fehler!");
     }
   }
 
-  Widget _buildPopupDialog(BuildContext context, String status) {
-    return new AlertDialog(
-      title: const Text('Eintrag Bearbeiten'),
-      content: new Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            status,
-            style: TextStyle(color: Color(0xff000000)),
+  Future<void> _buildPopupDialog(BuildContext context, String status) async {
+    await _showPopupDialog(context, status);
+    if (_view == true) {
+      debugPrint('hallo$_view');
+      Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
+    }
+  }
+
+  Future<Widget> _showPopupDialog(BuildContext context, String status) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => (AlertDialog(
+        title: const Text('Eintrag Bearbeiten'),
+        content: new Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              status,
+              style: TextStyle(color: Color(0xff000000)),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          new TextButton(
+            onPressed: () {
+              _view = true;
+              Navigator.of(context).pop();
+
+              //Navigator.of(context).pop();
+            },
+            child: Text('Close', style: TextStyle(color: Color(0xff000000))),
           ),
         ],
-      ),
-      actions: <Widget>[
-        new TextButton(
-          onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
-
-            //Navigator.of(context).pop();
-          },
-          child: Text('Close', style: TextStyle(color: Color(0xff000000))),
-        ),
-      ],
+      )),
     );
   }
 
