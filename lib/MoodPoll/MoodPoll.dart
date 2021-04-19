@@ -29,6 +29,7 @@ class _MoodPollController extends State<MoodPoll> {
 
   //UI Handler and Co. below
 
+  //Controller Setzen der Farbe und Logik bei Button Schmerzen
   void buttonSchmerzHandler(int position) {
     if (position == 0) {
       if (btnColorSchmerzabfrage[0] == Styles.LIGHT_GREY) {
@@ -59,29 +60,17 @@ class _MoodPollController extends State<MoodPoll> {
     }
   }
 
+  //Controller State bearbeiten zum Speichern und Neuladen der Schmerzabfrage
   void setVisibiltySchmerzabfrage(double value) {
     setState(() {
       this.visibilitySchmerzabfrage = value;
     });
   }
 
-
-  //Testing
-  //int i = 0;
-
+  //Controller AbschlussHandler Einlesen aller Wertfelder und speichern der Daten in der DB
   void buttonAbschlussHandler() async {
     MoodDatabase moodDatabase = new MoodDatabase();
     String currentDate = DateTime.now().toIso8601String();
-    /*
-    For Testing
-
-    Random r = new Random();
-    //currentDate = DateTime.utc(r.nextInt(2050), r.nextInt(12), r.nextInt(9)).toIso8601String();
-    currentDate = DateTime.utc(2020, 12, i).toIso8601String();
-    i++;
-
-    End Testing
-     */
     MoodEntry moodEntry = MoodEntry(
       dateTime: currentDate,
       moodInPoints: sliderValue,
@@ -96,6 +85,7 @@ class _MoodPollController extends State<MoodPoll> {
     Navigator.pop(context);
   }
 
+  //Controller
   void setAbschlussButtonVisibilityDependingOnUserInput() {
     if ((sliderValue == 0 ||
             sliderValue == 20 ||
@@ -111,6 +101,7 @@ class _MoodPollController extends State<MoodPoll> {
     }
   }
 
+  //Controller setzen des Slider Values ueber State
   void sliderHandler(double value) {
     setState(() {
       sliderValue = value;

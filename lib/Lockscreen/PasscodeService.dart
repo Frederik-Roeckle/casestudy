@@ -12,6 +12,7 @@ class PasscodeService {
   Box passcodeBox;
   String passcodeHash;
 
+  //Initialisierung des Services HIVE Box Initialisieren und den Passcode Hash laden
   void initPasscodeService() async {
     if(!Hive.isBoxOpen(HIVE_BOX_NAME)) {
       await Hive.initFlutter();
@@ -23,12 +24,14 @@ class PasscodeService {
     debugPrint(passcodeHash);
   }
 
+  //einen neuen passcode string hashen und abspeichern
   Future<void> setPasscode(String code) async{
     await initPasscodeService();
     String hash = getHashFromString(code);
     await passcodeBox.put(HIVE_KEY_NAME, hash);
   }
 
+  //Vergleichen des Hashes
   Future<bool> checkPasscodeWithString(String hash) async {
     debugPrint("CheckPasscodeWithHashing");
     debugPrint(passcodeHash);
@@ -39,7 +42,7 @@ class PasscodeService {
     bool erg = compareDigest(passcodeHash, getHashFromString(hash));
     return erg;
   }
-
+  //Vergleichen der Hashes Low Level
   bool compareDigest(String digestA, String digestB) {
     debugPrint("Hash 1: $digestA");
     debugPrint("Hash 2: $digestB");
@@ -50,6 +53,7 @@ class PasscodeService {
     }
   }
 
+  //SHA512 Hash Methode
   String getHashFromString(String value) {
     var bytesValue = utf8.encode(value);
     return sha512.convert(bytesValue).toString();

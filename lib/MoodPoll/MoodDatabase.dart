@@ -6,6 +6,7 @@ import 'package:flutter_app_casestudy/MoodPoll/MoodEntry.Dart';
 class MoodDatabase {
   Future<Database> database;
 
+  //Initalisieren und Erzeugen der Datenbank mit nativem SQlite Query
   Future<void> initaliseDatabase() async {
     String databasePath = await getDatabasesPath();
     database = openDatabase(
@@ -19,12 +20,14 @@ class MoodDatabase {
     );
   }
 
+  //Einfuegen eines Elements in die DB
   Future<void> insertElement(MoodEntry moodEntry) async {
     final Database db = await database;
     await db.insert("Mood", moodEntry.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  //Alle Elemente in Listform aus der DB laden
   Future<List<MoodEntry>> retrieveElements() async {
     // Get a reference to the database.
     final Database db = await database;

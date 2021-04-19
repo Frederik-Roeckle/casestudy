@@ -14,6 +14,7 @@ class _MoodStatisticController extends State<MoodStatistic> {
   @override
   Widget build(BuildContext context) => _MoodStatisticView(this);
 
+  //Controller Einlesen aller Mood Eintraege aus der DB
   Future<List<MoodEntry>> _retrieveAllMoodElementsFromDatabase() async {
     MoodDatabase moodDatabase = new MoodDatabase();
     await moodDatabase.initaliseDatabase();
@@ -34,6 +35,7 @@ class _MoodStatisticView extends StatelessWidget {
         title: Text("Stimmung-Statistik"),
         backgroundColor: Styles.STRONG_GREEN,
       ),
+      //Future Builder zum Asynchronen laden der Eintraege aus der DB und Anzeigen bei Verfuegbarkeit
       body: FutureBuilder(
         future: state._retrieveAllMoodElementsFromDatabase(),
         builder: (context, snapshot) {
@@ -171,6 +173,7 @@ class _MoodStatisticView extends StatelessWidget {
     );
   }
 
+  // MoodinPoint Attribut der DB Eintraege entsprechende Farben zuweisen
   charts.Color _getBarChartColorForMoodPoints(double moodPoints) {
     if(moodPoints == 0) {
       return charts.MaterialPalette.red.shadeDefault;
@@ -187,6 +190,7 @@ class _MoodStatisticView extends StatelessWidget {
     }
   }
 
+  // Zuweisen der Hoehe fuer den Bar Graph in Abhaengigkeit der MoodPoints Ausname 0 MoodPoints, Anzeige als Wert 3 da sonst nicht sichtbar
   int _getBarPointsForMoodPoints(double moodPoints) {
     if(moodPoints == 0) {
       return 3;

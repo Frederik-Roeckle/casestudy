@@ -25,20 +25,17 @@ class _LockscreenController extends State<Lockscreen> {
   final passwdTextFieldController = TextEditingController();
 
   //Functions
+  //ueberprueft ob lokal ein Passwort schon existiert
   Future<void> checkIfPasswordIsSetOnStartup() async {
     var passcodeService = PasscodeService();
     await passcodeService.initPasscodeService();
     bool noPasscodeExists = await passcodeService.checkPasscodeWithString("");
-    /*
-    For Testing
-    passcodeService.setPasscode("1234"); //Set Inital Password
-     */
-
     if (noPasscodeExists) {
       AppLock.of(context).didUnlock();
     }
   }
 
+  //Hauptmethode zum Vergleichen der Gleichheit des EingabeHashes und des lokalen PasswortHashes
   void checkForCorrectLoginPasscode(String value) async {
     var passcodeService = PasscodeService();
     bool passcodeCorrect = false;
