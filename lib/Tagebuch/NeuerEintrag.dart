@@ -9,7 +9,6 @@ class NeuerEintrag extends StatefulWidget {
 
 class _NeuerEintrag extends State<NeuerEintrag> {
   bool _view = false;
-
   DateTime _dateTime;
   String _choosingDate = 'Wähle ein Datum aus!';
 
@@ -17,7 +16,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
   final scrollController = ScrollController();
 
   Datenbank db = new Datenbank();
-
+  //Bauen der Eintrag-Anlegen-Anzeige
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,13 +29,12 @@ class _NeuerEintrag extends State<NeuerEintrag> {
         _textField(),
         _submitEntry(),
       ]),
-
     );
   }
 
+  //Button zum ANlegen des Eintrages
   Widget _submitEntry() {
     return Container(
-        //padding: EdgeInsets.all(30.0),
         decoration: BoxDecoration(
             color: Styles.LIGHT_GREEN,
             borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -49,9 +47,9 @@ class _NeuerEintrag extends State<NeuerEintrag> {
         ));
   }
 
+  //Textfeld
   Widget _textField() {
     return Container(
-        /* padding: EdgeInsets.all(15.0), */
         margin: EdgeInsets.all(10),
         height: 300,
         child: TextField(
@@ -68,6 +66,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
             }));
   }
 
+  //Erwartet Schließen des Erfolgs-Popup für Routing
   Future<void> _openNewEntry(DateTime date, String text) async {
     await _newEntry(date, text);
     if (_view == true) {
@@ -75,17 +74,16 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     }
   }
 
+  //Anlegen des neuen Tagebucheintrages in der Datenbank, anschließend Popup
   Future<Widget> _newEntry(DateTime date, String text) async {
     bool suc = false;
     if (date == null) {
       date = DateTime.now();
     }
     String _date = date.toIso8601String();
-    debugPrint('DateTime: $_dateTime');
 
     await db.insertDiary(_date, text).whenComplete(() => suc = true);
 
-    debugPrint('suc: $suc');
     if (suc == true) {
       return showDialog(
         context: context,
@@ -101,6 +99,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     }
   }
 
+//Bauen des Erfolgs- oder Misserfolgspopup
   Widget _buildPopupDialog(BuildContext context, String status) {
     return new AlertDialog(
       title: const Text('Neuer Tagebucheintrag'),
@@ -126,6 +125,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     );
   }
 
+  //Widget zum auswählen des Datums
   Widget _datePicker() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -144,7 +144,6 @@ class _NeuerEintrag extends State<NeuerEintrag> {
               _dateTime = date;
               _dateFormatter(date);
             });
-            debugPrint('DateTime: $_dateTime');
           });
         },
         child: new Text(
@@ -155,6 +154,7 @@ class _NeuerEintrag extends State<NeuerEintrag> {
     );
   }
 
+  //Formatieren des Ausgewaehlten Datums zur anzeige in Button
   _dateFormatter(DateTime date) {
     String dateString = date.toIso8601String();
     var onlyDate = dateString.split("T");

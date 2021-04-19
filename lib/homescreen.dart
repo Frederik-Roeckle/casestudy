@@ -22,6 +22,7 @@ class HomescreenList extends StatelessWidget {
       );
     }
 
+    //Anzeigen von Routing-Kacheln und Anzeige des Anmelde-, sowie Einstellungsbuttons in der AppBar
     return Scaffold(
       appBar: AppBar(
         title: Text("Übersicht", style: Styles.headerLarge),
@@ -57,6 +58,7 @@ class HomescreenList extends StatelessWidget {
     );
   }
 
+  //Erstellen der konkreten Routing-Kacheln
   Widget _routingTile(context, String funktion, String route) {
     return Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
