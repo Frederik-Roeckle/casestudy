@@ -3,6 +3,7 @@ import 'package:flutter_app_casestudy/styles.dart';
 
 class Physiotherapie extends StatelessWidget {
   @override
+  //Erstellt Physioscreen mit den zwei verschieden Kategorien (Kraft und Atem)
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

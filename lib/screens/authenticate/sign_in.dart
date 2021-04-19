@@ -37,6 +37,7 @@ class _SignInState extends State<SignIn> {
                     Icons.person,
                     color: Styles.WHITE,
                   ),
+                  //Ermöglicht Wechsel zur SignIn Page
                   label: Text('Register', style: Styles.textDefault),
                   onPressed: () => widget.toggleView(),
                 ),
@@ -80,6 +81,7 @@ class _SignInState extends State<SignIn> {
                               'Sign In',
                               style: TextStyle(color: Colors.white),
                             ),
+                            //Überprüft ob User vorhanden ist und die Eingaben übereinstimmen
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);

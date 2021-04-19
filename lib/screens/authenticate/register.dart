@@ -16,11 +16,12 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
 
-  // text field state
+  // text field states
   String email = '';
   String password = '';
   String error = '';
 
+//Beim Registrieren wird ein neuer User in Firebase angelegt
   @override
   Widget build(BuildContext context) {
     return loading
@@ -37,6 +38,7 @@ class _RegisterState extends State<Register> {
                     Icons.person,
                     color: Styles.WHITE,
                   ),
+                  //Ermöglicht Wechsel zur RegisterPage
                   label: Text('Sign In', style: Styles.textDefault),
                   onPressed: () => widget.toggleView(),
                 ),
@@ -58,6 +60,7 @@ class _RegisterState extends State<Register> {
                           validator: (val) =>
                               val.isEmpty ? 'Enter an email' : null,
                           onChanged: (val) {
+                            //Hinterlegt die E-Mail in einer Variable
                             setState(() => email = val);
                           },
                         ),
@@ -69,17 +72,18 @@ class _RegisterState extends State<Register> {
                           validator: (val) => val.length < 6
                               ? 'Enter a password 6+ chars long'
                               : null,
+                          //Hinterlegt das Passwort in einer Varaible
                           onChanged: (val) {
                             setState(() => password = val);
                           },
                         ),
                         SizedBox(height: 20.0),
                         ElevatedButton(
-                            //color: Colors.pink[400],
                             child: Text(
                               'Register',
                               style: TextStyle(color: Colors.white),
                             ),
+                            //Die Parameter E-Mail und Passwort werden mitgegeben
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);

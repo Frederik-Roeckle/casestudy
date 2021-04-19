@@ -7,6 +7,7 @@ class Authenticate extends StatefulWidget {
   _AuthenticateState createState() => _AuthenticateState();
 }
 
+//Wechselt zwischen Register und SignIn Screen hin und her, wenn man auf den Button drueckt
 class _AuthenticateState extends State<Authenticate> {
   bool showSignIn = true;
   void toggleView() {

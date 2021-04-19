@@ -9,7 +9,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<Userr>(context);
 
-    // return either the Home or Authenticate widget
+    // Bei Erfolgreicher Anmeldung wird man auf den Homescreen weiter geleitet, ansonsten zur Authentication (SignIn der Registrierung)
     if (user == null) {
       return Authenticate();
     } else {
