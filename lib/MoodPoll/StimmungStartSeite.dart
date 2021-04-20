@@ -6,6 +6,7 @@ class StimmungStartSeite extends StatefulWidget {
   _StimmungStartSeiteState createState() => _StimmungStartSeiteState();
 }
 
+//Klasse Uebersicht Stimmungsabfrage und Statistik
 class _StimmungStartSeiteState extends State<StimmungStartSeite> {
   @override
   Widget build(BuildContext context) {
