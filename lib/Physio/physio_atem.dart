@@ -37,6 +37,7 @@ class ListPageAtem extends StatefulWidget {
 
 class _ListPageAtemState extends State<ListPageAtem> {
   Future getPhysioAtem() async {
+    //Holt Atemübungen aus der Firestore-Datenbank
     var firestore = FirebaseFirestore.instance;
 
     QuerySnapshot qn = await firestore.collection('physioAtem').get();
@@ -44,6 +45,7 @@ class _ListPageAtemState extends State<ListPageAtem> {
     return qn.docs;
   }
 
+//Navigiert von der ListView zur DetailPage von der ausgewaehlten Uebung
   navigateToDetail(DocumentSnapshot post) {
     Navigator.push(
       context,
@@ -55,10 +57,12 @@ class _ListPageAtemState extends State<ListPageAtem> {
     );
   }
 
+//Erstellt Liste der verschiedenen Kraftübungen
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
+        //Ruft Methode auf, um Übungen zu erhalten
         future: getPhysioAtem(),
         builder: (_, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -81,6 +85,7 @@ class _ListPageAtemState extends State<ListPageAtem> {
 }
 
 class DetailPageAtem extends StatefulWidget {
+  //Konstruktor der die ausgewaehlt Übung zur DetailPage uebertraegt
   final DocumentSnapshot post;
   DetailPageAtem({this.post});
 
@@ -89,6 +94,7 @@ class DetailPageAtem extends StatefulWidget {
 }
 
 class _DetailPageAtemState extends State<DetailPageAtem> {
+  //DetailPage der ausgewahlten Uebung
   @override
   Widget build(BuildContext context) {
     return Scaffold(

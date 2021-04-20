@@ -37,6 +37,7 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   Future getPhysio() async {
+    //Holt Kraftübungen aus der Firestore-Datenbank
     var firestore = FirebaseFirestore.instance;
 
     QuerySnapshot qn = await firestore.collection('physioKraft').get();
@@ -44,6 +45,7 @@ class _ListPageState extends State<ListPage> {
     return qn.docs;
   }
 
+  //Navigiert von der ListView zur DetailPage von der ausgewaehlten Uebung
   navigateToDetail(DocumentSnapshot post) {
     Navigator.push(
       context,
@@ -55,10 +57,12 @@ class _ListPageState extends State<ListPage> {
     );
   }
 
+//Erstellt Liste der verschiedenen Kraftübungen
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
+        //Ruft Methode auf, um Übungen zu erhalten
         future: getPhysio(),
         builder: (_, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -81,6 +85,7 @@ class _ListPageState extends State<ListPage> {
 }
 
 class DetailPage extends StatefulWidget {
+  //Konstruktor der die ausgewaehlt Übung zur DetailPage uebertraegt
   final DocumentSnapshot post;
   DetailPage({this.post});
 
@@ -89,6 +94,7 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  //DetailPage der ausgewahlten Uebung
   @override
   Widget build(BuildContext context) {
     return Scaffold(
