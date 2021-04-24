@@ -19,19 +19,21 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
   final scrollController = ScrollController();
 
   Datenbank db = new Datenbank();
-
+  //Laden der Bearbeitungsanzeige
   @override
   Widget build(BuildContext context) {
-    final Diary args = ModalRoute.of(context).settings.arguments;
+    final Diary args = ModalRoute.of(context)
+        .settings
+        .arguments; //Zu bearbeitendes Tagebuchobjekt wurde an die Route übergeben
     if (_diaryText == null) {
+      //Laden der Werte des Tagebucheintrages in das Textfeld und die Datumanzeige, wenn noch keine gesetzt
       _diaryText = args.entry;
       textFieldController.text = _diaryText;
       _date = args.date;
       _newDate = args.date;
       _dateTime = DateTime.parse(args.date);
-      debugPrint('args.date $_date');
-      debugPrint('_dateTime $_dateTime');
-      _dateFormatter(args.date);
+      _dateFormatter(args
+          .date); //Formatieren des Datums, fuer die Anzeige des Datum-Buttons
     }
 
     return Scaffold(
@@ -48,6 +50,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         ));
   }
 
+  //Rueckgabe des Textfelds
   Widget _textField() {
     return Container(
         padding: EdgeInsets.all(15.0),
@@ -66,6 +69,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
             }));
   }
 
+  //Button zur Bestaetigung der Aenderungen
   Widget _submitEntry() {
     return Container(
         margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -82,6 +86,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         ));
   }
 
+  //Delete-Button
   Widget _deleteButton() {
     return Container(
         margin: EdgeInsets.fromLTRB(5, 5, 5, 0),
@@ -98,6 +103,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         ));
   }
 
+  //Delete-Methode zum Loeschen aus der Datenbank
   _deleteDiary(String date) async {
     //await db.deleteAllDiaries(date);
     await db
@@ -108,6 +114,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
         );
   }
 
+  //Methode zur Aenderung des Kalendereintrags
   Future<void> _changeEntry(String date, String text) async {
     bool suc = false;
 
@@ -125,14 +132,16 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
     }
   }
 
+  //Methode die schließen des Erfolg-Popups erwartet, um den Nutzer weiter zu routen,
   Future<void> _buildPopupDialog(BuildContext context, String status) async {
+    //Da Routen aus Popup nicht möglich
     await _showPopupDialog(context, status);
     if (_view == true) {
-      debugPrint('hallo$_view');
       Navigator.popUntil(context, ModalRoute.withName('/Tagebuch'));
     }
   }
 
+  //Popup nach Aenderung
   Future<Widget> _showPopupDialog(BuildContext context, String status) {
     return showDialog(
       context: context,
@@ -153,8 +162,6 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
             onPressed: () {
               _view = true;
               Navigator.of(context).pop();
-
-              //Navigator.of(context).pop();
             },
             child: Text('Close', style: TextStyle(color: Color(0xff000000))),
           ),
@@ -163,6 +170,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
     );
   }
 
+  //Date-Picker zur Aenderung des Datums des Tagebuchs
   Widget _datePicker() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -193,6 +201,7 @@ class _EintragBearbeiten extends State<EintragBearbeiten> {
     );
   }
 
+  //Datum muss fuer schoene Anzeige im Button formatiert werden
   _dateFormatter(String date) {
     debugPrint('dateformatter date$date');
     var onlyDate = date.split("T");

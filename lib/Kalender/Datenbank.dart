@@ -8,6 +8,7 @@ import 'package:sqflite/sqflite.dart';
 class Datenbank {
   Future<Database> database;
 
+  //Initialisieren der Datenbank
   Future<void> databaseInit() async {
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -16,20 +17,20 @@ class Datenbank {
       // `path` package is best practice to ensure the path is correctly
       // constructed for each platform.
       join(await getDatabasesPath(), 'appoints.db'),
-      // When the database is first created, create a table to store diaries.
+      // When the database is first created, create a table to store appoints.
       onCreate: (db, version) {
         db.execute(
           "CREATE TABLE appoints(id INTEGER PRIMARY KEY, description TEXT, start TEXT, end TEXT)",
         );
         db.insert(
             'appoints',
+            //Einsetzen Mocktermins, damit der FutureBuilder des Kalenders laden kann.
             Appoint(
                     id: 0,
                     description: 'null',
                     start: '2019-09-07T15:50+01:00',
                     end: '2019-09-07T16:50+01:00')
                 .toMap());
-        debugPrint('hilfe');
       },
 
       // Set the version. This executes the onCreate function and provides a
@@ -38,12 +39,13 @@ class Datenbank {
     );
   }
 
+  //ausgeben aller Eintraege der Datenbank
   Future<List<Appoint>> appoint() async {
     // Get a reference to the database.
     await databaseInit();
     final Database db = await database;
 
-    // Query the table for all The diaries.
+    // Query the table for all The appoints.
     final List<Map<String, dynamic>> maps =
         await db.rawQuery('SELECT * FROM appoints');
 
@@ -58,6 +60,7 @@ class Datenbank {
     });
   }
 
+  //aendern eines Datenbankeintrages
   Future<void> updateAppoint(
       String notes, String _description, String _start, String _end) async {
     // Get a reference to the database.
@@ -80,6 +83,7 @@ class Datenbank {
     );
   }
 
+  //Einfuegen eines neuen Kalendereintrages
   Future<void> insertAppoint(
       String description, String start, String end) async {
     // Get a reference to the database.
@@ -110,6 +114,7 @@ class Datenbank {
     );
   }
 
+  //Loeschen eines Kalendereintrags
   Future<void> deleteAppoint(String notes) async {
     // Get a reference to the database.
     await databaseInit();
@@ -125,6 +130,7 @@ class Datenbank {
         ]);
   }
 
+  //Loeschen aller Kalendereintraege, nur für development-Zwecke
   Future<void> deleteAllAppoints() async {
     // Get a reference to the database.
     await databaseInit();
@@ -135,6 +141,7 @@ class Datenbank {
   }
 }
 
+//Appoint-Objekt für die Datenbank
 class Appoint {
   final int id;
   final String description;

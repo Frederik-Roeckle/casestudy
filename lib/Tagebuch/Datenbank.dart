@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 class Datenbank {
   Future<Database> database;
-
+  //Initiales Laden der Datenbank
   Future<void> databaseInit() async {
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -29,6 +29,7 @@ class Datenbank {
     );
   }
 
+  //Zurueckgeben aller Tagebucheintraege
   Future<List<Diary>> diaries() async {
     // Get a reference to the database.
     await databaseInit();
@@ -47,6 +48,7 @@ class Datenbank {
     });
   }
 
+  //Aendern eines bestehenden Tagebucheintrags
   Future<void> updateDiary(String date, String text) async {
     // Get a reference to the database.
     await databaseInit();
@@ -65,6 +67,7 @@ class Datenbank {
     );
   }
 
+  //Anlegen eines neuen Tagebucheintrags
   Future<void> insertDiary(String date, String text) async {
     // Get a reference to the database.
     await databaseInit();
@@ -73,12 +76,10 @@ class Datenbank {
     Diary diary = Diary(date: date, entry: text);
     String _diary = diary.toString();
 
-
     debugPrint('diary: $_diary');
 
-
     // Insert the Diary into the correct table. You might also specify the
-    // `conflictAlgorithm` to use in case the same dog is inserted twice.
+    // `conflictAlgorithm` to use in case the same Diary-Entry is inserted twice.
     //
     // In this case, replace any previous data.
     await db.insert(
@@ -88,6 +89,7 @@ class Datenbank {
     );
   }
 
+  //Loeschen eines Tagebucheintrages
   Future<void> deleteDiary(String date) async {
     // Get a reference to the database.
     await databaseInit();
@@ -95,7 +97,7 @@ class Datenbank {
 
     // Remove the Diary from the database.
     await db.delete('diaries',
-        // Use a `where` clause to delete a specific dog.
+        // Use a `where` clause to delete a specific Diary-Entry.
         where: "date = ?",
         // Pass the Diary's id as a whereArg to prevent SQL injection.
         whereArgs: [
@@ -103,6 +105,7 @@ class Datenbank {
         ]);
   }
 
+  //Loeschen aller Tagebucheintraege, Development only
   Future<void> deleteAllDiaries() async {
     // Get a reference to the database.
     await databaseInit();
@@ -127,7 +130,7 @@ class Diary {
   }
 
   // Implement toString to make it easier to see information about
-  // each dog when using the print statement.
+  // each Diary-Entry when using the print statement.
   @override
   String toString() {
     return 'Diary{date: $date, entry: $entry}';

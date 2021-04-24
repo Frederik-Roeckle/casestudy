@@ -14,12 +14,11 @@ class _Kalender extends State<Kalender> {
 
   final _formKey = GlobalKey<FormState>();
   bool _view = false;
-
   DateTime __start;
-
   DateTime __end;
   CalendarController _calendarController;
   var textFieldController = TextEditingController();
+  //Initialsieren des States
   @override
   void initState() {
     _calendarController = CalendarController();
@@ -27,6 +26,7 @@ class _Kalender extends State<Kalender> {
     super.initState();
   }
 
+  //Bauen des Hauptwidgets
   @override
   Widget build(BuildContext context) {
     var view2 = CalendarView.week;
@@ -36,10 +36,12 @@ class _Kalender extends State<Kalender> {
         title: Text('Kalender'),
         backgroundColor: Styles.STRONG_GREEN,
       ),
+      //FutureBuilder baut Widget dynamisch während Daten aus der Datenbank geladen werden
       body: FutureBuilder(
         future: _loadEntries(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            //Kalender des Packages syncfusion_flutter_calendar
             return SfCalendar(
               view: view2,
               firstDayOfWeek: 1,
@@ -65,20 +67,25 @@ class _Kalender extends State<Kalender> {
     );
   }
 
+  //Wird aufgerufen, wenn auf den Kalender getippt wird, erwartet das Schließen des eigentlichen Popups
   _calenderTapped(CalendarTapDetails calendarTapDetails) async {
     await showCalendarTapped(calendarTapDetails);
     if (_view == true) {
-      Navigator.popAndPushNamed(context, '/Kalender');
+      // Erneutes aufrufen des Kalenders, Routing über diese Zwischenmethode, da von Popup kein Zugriff auf normalen Context,
+      Navigator.popAndPushNamed(context, '/Kalender'); // Routen sonst verbuggt
     }
   }
 
+//Wird aufgerufen, wenn auf den plus-Button gedrückt wird, erwartet das Schließen des eigentlichen Popups
   Future<void> _newEvent(BuildContext context) async {
     await _showNewEvent(context);
     if (_view == true) {
-      Navigator.popAndPushNamed(context, '/Kalender');
+      // Erneutes aufrufen des Kalenders, Routing über diese Zwischenmethode, da von Popup kein Zugriff auf normalen Context,
+      Navigator.popAndPushNamed(context, '/Kalender'); // Routen sonst verbuggt
     }
   }
 
+  //Anzeigen des Popups zum Erstellen eines neuen Kalendereintrags
   Future<void> _showNewEvent(BuildContext context) {
     return showDialog(
         context: context,
@@ -124,8 +131,8 @@ class _Kalender extends State<Kalender> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Styles.LIGHT_GREEN)),
                             child: Text("Submit"),
-                            onPressed: () {
-                              _addEvent();
+                            onPressed: () async {
+                              await _addEvent();
                               //setState(() {});
                               _view = true;
                               Navigator.of(context).pop();
@@ -142,12 +149,17 @@ class _Kalender extends State<Kalender> {
         });
   }
 
+  //Anzeigen eines Timepickers für einen neuen Eintrag
   _choosingStartTime(bool bol) async {
+    TimeOfDay _initialTime =
+        TimeOfDay.fromDateTime(_calendarController.selectedDate);
     TimeOfDay start;
+    if (bol == false) {
+      _initialTime = _initialTime.addHour(1);
+    }
     start = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.fromDateTime(
-          _calendarController.selectedDate), //_calendarController.selectedDate
+      initialTime: _initialTime, //_calendarController.selectedDate
     );
     debugPrint('start$start');
     if (bol == true) {
@@ -167,18 +179,18 @@ class _Kalender extends State<Kalender> {
     }
   }
 
+  //Einfügen eines neuen Eintrags in die Datenbank
   _addEvent() async {
-    await db.insertAppoint(
-        textFieldController.text,
-        __start.toIso8601String(), //__start.toIso8601String()
-        __end.toIso8601String()); //__end.toIso8601String()
-    debugPrint('hallo Sophie$textFieldController.text');
+    await db.insertAppoint(textFieldController.text, __start.toIso8601String(),
+        __end.toIso8601String());
   }
 
+  //getter für AppointmentList
   List<Appointment> getAppointments() {
     return meetings;
   }
 
+  //Holen aller Eintraege aus der Datenbank, konvertierung dieser in Appointment-Objekte des Kalenders und Speichern in einer List
   Future<List<Appointment>> _loadEntries() async {
     List<Appoint> app = await db.appoint();
     for (int i = 0; i < app.length; i++) {
@@ -192,6 +204,7 @@ class _Kalender extends State<Kalender> {
     return meetings;
   }
 
+  //Anzeigen eines Popups, wenn ein Kalendereintrag angeklickt wurde, welches Änderungen an diesem zulaesst
   Future<void> showCalendarTapped(CalendarTapDetails calendarTapDetails) async {
     TimeOfDay start;
     TimeOfDay end;
@@ -264,7 +277,7 @@ class _Kalender extends State<Kalender> {
                                       context: context,
                                       initialTime: TimeOfDay.fromDateTime(
                                           appointment
-                                              .startTime), //_calendarController.selectedDate
+                                              .endTime), //_calendarController.selectedDate
                                     )),
                           ),
                           Padding(
@@ -277,7 +290,7 @@ class _Kalender extends State<Kalender> {
                                 "Submit",
                                 overflow: TextOverflow.clip,
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 String text;
                                 if (textFieldController.text == null) {
                                   text = appointment.subject;
@@ -309,7 +322,7 @@ class _Kalender extends State<Kalender> {
                                     _date.day,
                                     end.hour,
                                     end.minute);
-                                db.updateAppoint(
+                                await db.updateAppoint(
                                     appointment.notes,
                                     text,
                                     __start.toIso8601String(),
@@ -341,6 +354,13 @@ class _Kalender extends State<Kalender> {
             );
           });
     }
+  }
+}
+
+//Extension um automtisch eine Stunde Differenz zwischen Start- und Endzeit zu erzeugen
+extension TimeOfDayExtension on TimeOfDay {
+  TimeOfDay addHour(int hour) {
+    return this.replacing(hour: this.hour + hour, minute: this.minute);
   }
 }
 

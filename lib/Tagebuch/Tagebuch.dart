@@ -8,13 +8,14 @@ class Tagebuch extends StatefulWidget {
 
 class _Tagebuch extends State<Tagebuch> {
   Datenbank db = new Datenbank();
-
+  //Instanziieren der Datenbank
   @override
   void initState() {
     super.initState();
     db.databaseInit();
   }
 
+  //Anzeigen von zwei Kacheln die auf die entsprechenden Unterseiten verweisen und das Datenbankobjekt uebergeben
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +31,7 @@ class _Tagebuch extends State<Tagebuch> {
         ));
   }
 
+  //Die Kachel
   Widget _routingTile(context, Datenbank db, String funktion, String route) {
     return Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
